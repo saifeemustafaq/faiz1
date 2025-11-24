@@ -37,6 +37,23 @@ export default function EventModal({
     setSelectedDate(initialDate);
   }, [initialDetails, initialTime, initialDate, isOpen]);
 
+  // Handle escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        handleClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen]);
+
   const handleSave = () => {
     if (!details.trim()) {
       alert('Please enter event details');

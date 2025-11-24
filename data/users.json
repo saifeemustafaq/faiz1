@@ -1,0 +1,35 @@
+{
+  "users": [],
+  "description": "System users who can log into the admin portal",
+  "example": [
+    {
+      "id": "user-001",
+      "username": "admin",
+      "passwordHash": "$2b$10$...",
+      "roleId": "role-001",
+      "roleName": "Administrator",
+      "permissions": [
+        "menu:modify",
+        "events:manage",
+        "rsvp:manage",
+        "roles:manage",
+        "recipients:manage",
+        "carts:manage",
+        "inventory:manage",
+        "settings:modify"
+      ],
+      "status": "active",
+      "lastLoginAt": null,
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z",
+      "createdBy": null,
+      "createdByName": "System",
+      "updatedBy": null,
+      "updatedByName": null,
+      "deletedAt": null,
+      "deletedBy": null
+    }
+  ],
+  "note": "Passwords should be hashed with bcrypt before storage"
+}
+

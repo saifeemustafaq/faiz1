@@ -1,0 +1,21 @@
+{
+  "events": [],
+  "description": "Community events with details and RSVP capability",
+  "example": [
+    {
+      "id": "event-001",
+      "date": "2025-12-25",
+      "details": "Annual Community Feast",
+      "time": "7:00 PM",
+      "createdAt": "2025-11-24T00:00:00.000Z",
+      "updatedAt": "2025-11-24T00:00:00.000Z",
+      "createdBy": null,
+      "createdByName": "Admin",
+      "updatedBy": null,
+      "updatedByName": null,
+      "deletedAt": null,
+      "deletedBy": null
+    }
+  ]
+}
+

@@ -40,6 +40,15 @@
   display: flex;
   gap: var(--space-base);
   align-items: center;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.statCard:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-retro-hover);
+  background: var(--ivory-bg);
 }
 
 .statIcon {
@@ -96,55 +105,116 @@
   box-shadow: var(--shadow-retro);
 }
 
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-base);
+}
+
 .cardTitle {
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--black-text);
-  margin-bottom: var(--space-base);
+  margin: 0;
 }
 
-/* Activity List */
-.activityList {
+.viewAllLink {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--golden-main);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.viewAllLink:hover {
+  color: var(--golden-hover);
+  transform: translateX(2px);
+}
+
+/* Inventory Grid */
+.inventoryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-base);
 }
 
-.activityItem {
+.inventoryItem {
   display: flex;
-  gap: var(--space-md);
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-base);
+  background: var(--ivory-bg);
+  border: var(--border-width) solid var(--ivory-border);
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  cursor: pointer;
 }
 
-.activityIcon {
-  width: 32px;
-  height: 32px;
+.inventoryItem:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-retro);
+  border-color: var(--black-text);
+}
+
+.inventoryIcon {
+  width: 40px;
+  height: 40px;
   border-radius: var(--border-radius);
   border: var(--border-width) solid var(--black-text);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
 }
 
-.activityContent {
-  flex: 1;
-  min-width: 0;
+.inventoryContent {
+  text-align: center;
 }
 
-.activityText {
-  font-size: 0.875rem;
+.inventoryValue {
+  font-size: 1.5rem;
+  font-weight: 700;
   color: var(--black-text);
   margin-bottom: var(--space-xs);
+}
+
+.inventoryLabel {
+  font-size: 0.875rem;
+  color: var(--black-secondary);
   font-weight: 500;
 }
 
-.activityTime {
-  font-size: 0.75rem;
-  color: var(--black-tertiary);
+/* Empty State */
+.emptyState {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: var(--space-xs);
+  justify-content: center;
+  padding: var(--space-xl) var(--space-base);
+  text-align: center;
+}
+
+.emptyText {
+  font-size: 0.875rem;
+  color: var(--black-secondary);
+  margin: var(--space-base) 0;
+}
+
+.emptyLink {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--golden-main);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.emptyLink:hover {
+  color: var(--golden-hover);
 }
 
 /* Event List */
@@ -230,6 +300,7 @@
   cursor: pointer;
   box-shadow: var(--shadow-retro);
   transition: all var(--transition-fast);
+  text-decoration: none;
 }
 
 .actionButton:hover {
@@ -240,6 +311,8 @@
 
 .actionButton:active {
   background: var(--golden-active);
+  transform: translate(0, 0);
+  box-shadow: var(--shadow-retro);
 }
 
 /* Tablet */
@@ -250,6 +323,10 @@
 
   .quickActions {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .inventoryGrid {
+    grid-template-columns: repeat(4, 1fr);
   }
 
   .title {
@@ -272,11 +349,17 @@
   }
 
   .quickActions {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .title {
     font-size: 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .quickActions {
+    grid-template-columns: repeat(6, 1fr);
   }
 }
 

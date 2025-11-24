@@ -1,0 +1,37 @@
+{
+  "locations": [
+    {
+      "id": "loc-001",
+      "name": "Masjid",
+      "type": "location",
+      "displayOrder": 0,
+      "recipientCount": 0,
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z",
+      "createdBy": null,
+      "createdByName": "System",
+      "updatedBy": null,
+      "updatedByName": null,
+      "deletedAt": null,
+      "deletedBy": null
+    }
+  ],
+  "pickupLocations": [
+    {
+      "id": "pickup-001",
+      "name": "Masjid",
+      "type": "pickup",
+      "displayOrder": 0,
+      "recipientCount": 0,
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z",
+      "createdBy": null,
+      "createdByName": "System",
+      "updatedBy": null,
+      "updatedByName": null,
+      "deletedAt": null,
+      "deletedBy": null
+    }
+  ]
+}
+

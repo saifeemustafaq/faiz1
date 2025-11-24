@@ -83,12 +83,27 @@ export function addWeeks(date: Date, weeks: number): Date {
 }
 
 /**
- * Format date as ISO string for keys (YYYY-MM-DD)
+ * Format date as ISO string for keys (YYYY-MM-DD) in PST
  */
 export function formatDateKey(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  // Format in PST timezone to avoid timezone shifts
+  const pstDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+  const year = pstDate.getFullYear();
+  const month = String(pstDate.getMonth() + 1).padStart(2, '0');
+  const day = String(pstDate.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
+}
+
+/**
+ * Parse a date key (YYYY-MM-DD) back to a Date object in PST
+ */
+export function parseDateKey(dateKey: string): Date {
+  // Parse as PST date to avoid timezone shifts
+  // Add time component to ensure it's interpreted correctly
+  const pstString = `${dateKey}T12:00:00`;
+  const date = new Date(pstString);
+  // Convert to PST
+  const pstDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+  return pstDate;
 }
 

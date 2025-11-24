@@ -10,7 +10,8 @@ import {
   formatDayLabel,
   getWeekDays,
   addWeeks,
-  formatDateKey
+  formatDateKey,
+  parseDateKey
 } from '../../lib/dateUtils';
 import styles from './page.module.css';
 
@@ -247,7 +248,7 @@ export default function MenuManagement() {
           
           <div className={styles.summaryDays}>
             {savedSummary.days.map((day) => {
-              const date = new Date(day.date);
+              const date = parseDateKey(day.date);
               return (
                 <div key={day.date} className={styles.summaryDay}>
                   <strong>{formatDayLabel(date)}</strong>

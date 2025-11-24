@@ -1,0 +1,17 @@
+{
+  "rsvpSettings": {},
+  "description": "Admin control for which dates users can RSVP for meals",
+  "note": "Keys are date strings (YYYY-MM-DD), values are boolean (enabled/disabled)",
+  "defaultState": "DISABLED - Admins must explicitly enable RSVP for specific dates",
+  "example": {
+    "2025-11-25": true,
+    "2025-11-26": true,
+    "2025-11-27": false,
+    "2025-11-28": true,
+    "2025-11-29": true,
+    "2025-11-30": true
+  },
+  "timezone": "America/Los_Angeles (PST)",
+  "excludedDays": ["Sunday"]
+}
+

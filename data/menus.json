@@ -1,0 +1,35 @@
+{
+  "menus": {},
+  "description": "Weekly menu data structure",
+  "note": "Data is organized by week key (e.g., '2025-11-17')",
+  "example": {
+    "2025-11-17": {
+      "monday": {
+        "isEvent": false,
+        "items": ["Item 1", "Item 2", "Item 3"]
+      },
+      "tuesday": {
+        "isEvent": true,
+        "eventDetails": "Special Community Dinner",
+        "eventTime": "6:00 PM"
+      },
+      "wednesday": {
+        "isEvent": false,
+        "items": ["Item 1", "Item 2", "Item 3"]
+      },
+      "thursday": {
+        "isEvent": false,
+        "items": ["Item 1", "Item 2", "Item 3"]
+      },
+      "friday": {
+        "isEvent": false,
+        "items": ["Item 1", "Item 2", "Item 3"]
+      },
+      "saturday": {
+        "isEvent": false,
+        "items": ["Item 1", "Item 2", "Item 3"]
+      }
+    }
+  }
+}
+

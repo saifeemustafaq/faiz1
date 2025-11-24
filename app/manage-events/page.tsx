@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Calendar, Clock, Trash2, Edit, Plus } from 'lucide-react';
 import { useMenu } from '../../contexts/MenuContext';
-import { formatDayLabel, getCurrentPSTDate } from '../../lib/dateUtils';
+import { formatDayLabel, getCurrentPSTDate, parseDateKey } from '../../lib/dateUtils';
 import EventModal from '../../components/EventModal';
 import styles from './page.module.css';
 
@@ -19,7 +19,7 @@ export default function ManageEvents() {
     .filter(([_, data]) => data.isEvent && data.event?.details)
     .map(([dateKey, data]) => ({
       dateKey,
-      date: new Date(dateKey),
+      date: parseDateKey(dateKey), // Use parseDateKey to correctly interpret PST dates
       details: data.event?.details || '',
       time: data.event?.time,
       data
@@ -59,7 +59,7 @@ export default function ManageEvents() {
   };
 
   const getDateLabel = (dateKey: string) => {
-    const date = new Date(dateKey);
+    const date = parseDateKey(dateKey); // Use parseDateKey to correctly interpret PST dates
     return formatDayLabel(date);
   };
 

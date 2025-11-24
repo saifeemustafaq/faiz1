@@ -1,0 +1,69 @@
+{
+  "roles": [
+    {
+      "id": "role-001",
+      "name": "Administrator",
+      "description": "Full system access with all permissions",
+      "permissions": [
+        "menu:modify",
+        "events:manage",
+        "rsvp:manage",
+        "roles:manage",
+        "recipients:manage",
+        "carts:manage",
+        "inventory:manage",
+        "settings:modify"
+      ],
+      "isSystem": true,
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z",
+      "createdBy": null,
+      "createdByName": "System",
+      "updatedBy": null,
+      "updatedByName": null,
+      "deletedAt": null,
+      "deletedBy": null
+    },
+    {
+      "id": "role-002",
+      "name": "Manager",
+      "description": "Can manage menus, events, and recipients",
+      "permissions": [
+        "menu:modify",
+        "events:manage",
+        "recipients:manage",
+        "carts:view"
+      ],
+      "isSystem": false,
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z",
+      "createdBy": null,
+      "createdByName": "System",
+      "updatedBy": null,
+      "updatedByName": null,
+      "deletedAt": null,
+      "deletedBy": null
+    },
+    {
+      "id": "role-003",
+      "name": "Volunteer",
+      "description": "Can view menus and manage carts",
+      "permissions": [
+        "menu:view",
+        "carts:manage",
+        "recipients:view"
+      ],
+      "isSystem": false,
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z",
+      "createdBy": null,
+      "createdByName": "System",
+      "updatedBy": null,
+      "updatedByName": null,
+      "deletedAt": null,
+      "deletedBy": null
+    }
+  ],
+  "users": []
+}
+

@@ -1,0 +1,32 @@
+{
+  "carts": [],
+  "description": "Shopping cart data for managing purchases and inventory orders",
+  "example": [
+    {
+      "id": "cart-001",
+      "name": "Weekly Shopping - Nov 25",
+      "status": "active",
+      "items": [
+        {
+          "id": "item-001",
+          "productId": "prod-001",
+          "productName": "Rice",
+          "quantity": 50,
+          "unit": "lbs",
+          "store": "Costco",
+          "notes": "Basmati rice"
+        }
+      ],
+      "totalItems": 1,
+      "createdAt": "2025-11-24T00:00:00.000Z",
+      "updatedAt": "2025-11-24T00:00:00.000Z",
+      "createdBy": "user-001",
+      "createdByName": "Admin",
+      "completedAt": null,
+      "completedBy": null,
+      "deletedAt": null,
+      "deletedBy": null
+    }
+  ]
+}
+
