@@ -1,0 +1,27 @@
+.appContainer {
+  display: flex;
+  min-height: 100vh;
+  background: var(--ivory-bg);
+}
+
+.mainContent {
+  flex: 1;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 64px; /* Space for mobile menu button */
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+  .mainContent {
+    margin-left: 280px; /* Width of sidebar */
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mainContent {
+    margin-left: 300px; /* Wider sidebar on desktop */
+  }
+}
+

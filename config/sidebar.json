@@ -1,0 +1,59 @@
+{
+  "sidebarItems": [
+    {
+      "id": 1,
+      "label": "Dashboard",
+      "route": "/dashboard",
+      "icon": "LayoutDashboard"
+    },
+    {
+      "id": 2,
+      "label": "Menu Management",
+      "route": "/menu-management",
+      "icon": "UtensilsCrossed"
+    },
+    {
+      "id": 3,
+      "label": "RSVP Management",
+      "route": "/rsvp-management",
+      "icon": "CalendarCheck"
+    },
+    {
+      "id": 4,
+      "label": "Manage Events",
+      "route": "/manage-events",
+      "icon": "Calendar"
+    },
+    {
+      "id": 5,
+      "label": "Manage Roles",
+      "route": "/manage-roles",
+      "icon": "ShieldCheck"
+    },
+    {
+      "id": 6,
+      "label": "Thali Recipients",
+      "route": "/thali-recipients",
+      "icon": "Users"
+    },
+    {
+      "id": 7,
+      "label": "Manage Carts",
+      "route": "/manage-carts",
+      "icon": "ShoppingCart"
+    },
+    {
+      "id": 8,
+      "label": "Add New Items",
+      "route": "/add-new-items",
+      "icon": "Plus"
+    },
+    {
+      "id": 9,
+      "label": "Settings",
+      "route": "/settings",
+      "icon": "Settings"
+    }
+  ]
+}
+

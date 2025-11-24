@@ -1,0 +1,83 @@
+{
+    "units": [
+      {
+        "id": "lbs",
+        "name": "Pounds",
+        "shortName": "lbs",
+        "isActive": true
+      },
+      {
+        "id": "packets",
+        "name": "Packets",
+        "shortName": "pkt",
+        "isActive": true
+      },
+      {
+        "id": "bunches",
+        "name": "Bunches",
+        "shortName": "bunch",
+        "isActive": true
+      },
+      {
+        "id": "cases",
+        "name": "Cases",
+        "shortName": "case",
+        "isActive": true
+      },
+      {
+        "id": "gallons",
+        "name": "Gallons",
+        "shortName": "gal",
+        "isActive": true
+      },
+      {
+        "id": "ounces",
+        "name": "Ounces",
+        "shortName": "oz",
+        "isActive": true
+      },
+      {
+        "id": "grams",
+        "name": "Grams",
+        "shortName": "g",
+        "isActive": true
+      },
+      {
+        "id": "bottles",
+        "name": "Bottles",
+        "shortName": "btl",
+        "isActive": true
+      },
+      {
+        "id": "cans",
+        "name": "Cans",
+        "shortName": "can",
+        "isActive": true
+      },
+      {
+        "id": "pieces",
+        "name": "Pieces",
+        "shortName": "pc",
+        "isActive": true
+      },
+      {
+        "id": "boxes",
+        "name": "Boxes",
+        "shortName": "box",
+        "isActive": true
+      },
+      {
+        "id": "count",
+        "name": "Count",
+        "shortName": "ct",
+        "isActive": true
+      },
+      {
+        "id": "kg",
+        "name": "Kilograms",
+        "shortName": "kg",
+        "isActive": true
+      }
+    ]
+  }
+  

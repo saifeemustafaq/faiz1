@@ -1,0 +1,147 @@
+/* Mobile Menu Button */
+.menuButton {
+  position: fixed;
+  top: var(--space-base);
+  left: var(--space-base);
+  z-index: 1001;
+  background: var(--golden-main);
+  border: var(--border-width) solid var(--black-text);
+  border-radius: var(--border-radius);
+  padding: var(--space-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-retro);
+  transition: all var(--transition-fast);
+}
+
+.menuButton:hover {
+  background: var(--golden-hover);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-retro-hover);
+}
+
+.menuButton:active {
+  background: var(--golden-active);
+}
+
+/* Overlay for mobile */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 280px;
+  background: var(--ivory-card);
+  border-right: var(--border-width) solid var(--black-text);
+  padding: var(--space-xl) var(--space-base);
+  z-index: 1000;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform var(--transition-normal);
+}
+
+.sidebar.sidebarOpen {
+  transform: translateX(0);
+}
+
+/* Sidebar Header */
+.sidebarHeader {
+  padding: 0 var(--space-base);
+  margin-bottom: var(--space-xl);
+  margin-top: var(--space-2xl);
+}
+
+.sidebarTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--black-text);
+  line-height: 1.2;
+}
+
+/* Navigation */
+.nav {
+  width: 100%;
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-base);
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--black-text);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  border: 2px solid transparent;
+}
+
+.navItem:hover {
+  background: var(--ivory-divider);
+}
+
+.navItemActive {
+  background: var(--golden-main);
+  border-color: var(--black-text);
+  font-weight: 600;
+}
+
+.navItem svg {
+  flex-shrink: 0;
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+  .menuButton {
+    display: none;
+  }
+
+  .overlay {
+    display: none;
+  }
+
+  .sidebar {
+    transform: translateX(0);
+  }
+}
+
+/* Desktop - wider sidebar */
+@media (min-width: 1024px) {
+  .sidebar {
+    width: 300px;
+  }
+}
+

@@ -1,0 +1,223 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: var(--space-base);
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  background: var(--ivory-card);
+  border: var(--border-width) solid var(--black-text);
+  border-radius: var(--border-radius);
+  box-shadow: 8px 8px 0px var(--black-text);
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-lg);
+  border-bottom: var(--border-width) solid var(--ivory-border);
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--black-text);
+  margin: 0;
+}
+
+.closeButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--black-tertiary);
+  transition: color var(--transition-fast);
+}
+
+.closeButton:hover {
+  color: var(--black-text);
+}
+
+/* Date Label */
+.dateLabel {
+  padding: var(--space-md) var(--space-lg);
+  background: var(--golden-light);
+  border-bottom: 1px solid var(--ivory-border);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--black-text);
+  text-align: center;
+}
+
+/* Form */
+.form {
+  padding: var(--space-lg);
+}
+
+.formGroup {
+  margin-bottom: var(--space-lg);
+}
+
+.formGroup:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--black-text);
+  margin-bottom: var(--space-sm);
+}
+
+.required {
+  color: var(--red-error);
+}
+
+.optional {
+  color: var(--black-tertiary);
+  font-weight: 400;
+  font-style: italic;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  background: var(--ivory-bg);
+  border: var(--border-width) solid var(--black-text);
+  border-radius: var(--border-radius);
+  padding: var(--space-md);
+  font-size: 1rem;
+  color: var(--black-text);
+  font-family: inherit;
+  transition: all var(--transition-fast);
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--golden-main);
+  box-shadow: 0 0 0 2px var(--golden-light);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--black-tertiary);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: var(--space-base);
+  padding: var(--space-lg);
+  border-top: var(--border-width) solid var(--ivory-border);
+  justify-content: flex-end;
+}
+
+.cancelButton {
+  background: var(--ivory-bg);
+  color: var(--black-text);
+  border: var(--border-width) solid var(--black-text);
+  border-radius: var(--border-radius);
+  padding: var(--space-md) var(--space-lg);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-retro);
+}
+
+.cancelButton:hover {
+  background: var(--ivory-divider);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-retro-hover);
+}
+
+.saveButton {
+  background: var(--green-main);
+  color: var(--ivory-bg);
+  border: var(--border-width) solid var(--black-text);
+  border-radius: var(--border-radius);
+  padding: var(--space-md) var(--space-lg);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-retro);
+}
+
+.saveButton:hover {
+  background: var(--green-hover);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-retro-hover);
+}
+
+.saveButton:active {
+  background: var(--green-active);
+}
+
+/* Mobile */
+@media (max-width: 639px) {
+  .modal {
+    max-width: 100%;
+    margin: var(--space-base);
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .cancelButton,
+  .saveButton {
+    width: 100%;
+  }
+}
+
