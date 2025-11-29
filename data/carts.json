@@ -1,27 +1,192 @@
 {
-  "carts": [],
-  "description": "Shopping cart data for managing purchases and inventory orders",
-  "example": [
+  "carts": [
     {
-      "id": "cart-001",
-      "name": "Weekly Shopping - Nov 25",
+      "id": "cart-1764450163546",
+      "name": "Weekly Cart - Week of November 23, 2025",
       "status": "active",
       "items": [
         {
-          "id": "item-001",
-          "productId": "prod-001",
-          "productName": "Rice",
-          "quantity": 50,
-          "unit": "lbs",
-          "store": "Costco",
-          "notes": "Basmati rice"
+          "id": "item-1764450163546-0",
+          "productId": "prod-355",
+          "productName": "Royal Chef Extra Long Basmati Rice",
+          "quantity": 10,
+          "unit": "Pounds",
+          "notes": null
+        },
+        {
+          "id": "item-1764450163546-1",
+          "productId": "prod-554",
+          "productName": "Cumin seeds",
+          "quantity": 4,
+          "unit": "Ounces",
+          "notes": null
+        },
+        {
+          "id": "item-1764450163546-2",
+          "productId": "prod-590",
+          "productName": "Desi ghee",
+          "quantity": 1.5,
+          "unit": "Pounds",
+          "notes": null
+        },
+        {
+          "id": "item-1764450163546-3",
+          "productId": "prod-329",
+          "productName": "Chickpeas (white kabuli chana)",
+          "quantity": 12,
+          "unit": "Pounds",
+          "notes": null
+        },
+        {
+          "id": "item-1764450163546-4",
+          "productId": "prod-130",
+          "productName": "Onions (yellow)",
+          "quantity": 6,
+          "unit": "Pounds",
+          "notes": null
+        },
+        {
+          "id": "item-1764450163546-5",
+          "productId": "prod-143",
+          "productName": "Garlic (fresh peeled)",
+          "quantity": 1,
+          "unit": "Pounds",
+          "notes": null
+        },
+        {
+          "id": "item-1764450163546-6",
+          "productId": "prod-545",
+          "productName": "Cumin powder",
+          "quantity": 4,
+          "unit": "Ounces",
+          "notes": null
+        },
+        {
+          "id": "item-1764450163546-7",
+          "productId": "prod-003",
+          "productName": "Carrots (fresh)",
+          "quantity": 20,
+          "unit": "Kilograms",
+          "notes": null
+        },
+        {
+          "id": "item-1764450163546-8",
+          "productId": "prod-130",
+          "productName": "Sugar",
+          "quantity": 5,
+          "unit": "Kilograms",
+          "notes": null
+        },
+        {
+          "id": "item-1764450163546-9",
+          "productId": "prod-109",
+          "productName": "Salt",
+          "quantity": 1,
+          "unit": "Kilograms",
+          "notes": null
         }
       ],
-      "totalItems": 1,
-      "createdAt": "2025-11-24T00:00:00.000Z",
-      "updatedAt": "2025-11-24T00:00:00.000Z",
-      "createdBy": "user-001",
-      "createdByName": "Admin",
+      "totalItems": 10,
+      "createdAt": "2025-11-29T21:02:43.546Z",
+      "updatedAt": "2025-11-29T21:02:43.546Z",
+      "createdBy": null,
+      "createdByName": "System",
+      "completedAt": null,
+      "completedBy": null,
+      "deletedAt": null,
+      "deletedBy": null
+    },
+    {
+      "id": "cart-1764450932669",
+      "name": "Weekly Cart - Week of November 23, 2025",
+      "status": "active",
+      "items": [
+        {
+          "id": "item-1764450932669-0",
+          "productId": "prod-355",
+          "productName": "Royal Chef Extra Long Basmati Rice",
+          "quantity": 8,
+          "unit": "Pounds",
+          "notes": null
+        },
+        {
+          "id": "item-1764450932669-1",
+          "productId": "prod-554",
+          "productName": "Cumin seeds",
+          "quantity": 3.2,
+          "unit": "Ounces",
+          "notes": null
+        },
+        {
+          "id": "item-1764450932669-2",
+          "productId": "prod-590",
+          "productName": "Desi ghee",
+          "quantity": 1.2,
+          "unit": "Pounds",
+          "notes": null
+        },
+        {
+          "id": "item-1764450932669-3",
+          "productId": "prod-329",
+          "productName": "Chickpeas (white kabuli chana)",
+          "quantity": 9.6,
+          "unit": "Pounds",
+          "notes": null
+        },
+        {
+          "id": "item-1764450932669-4",
+          "productId": "prod-130",
+          "productName": "Onions (yellow)",
+          "quantity": 4.8,
+          "unit": "Pounds",
+          "notes": null
+        },
+        {
+          "id": "item-1764450932669-5",
+          "productId": "prod-143",
+          "productName": "Garlic (fresh peeled)",
+          "quantity": 0.8,
+          "unit": "Pounds",
+          "notes": null
+        },
+        {
+          "id": "item-1764450932669-6",
+          "productId": "prod-545",
+          "productName": "Cumin powder",
+          "quantity": 3.2,
+          "unit": "Ounces",
+          "notes": null
+        },
+        {
+          "id": "item-1764450932669-7",
+          "productId": "prod-003",
+          "productName": "Carrots (fresh)",
+          "quantity": 16,
+          "unit": "Kilograms",
+          "notes": null
+        },
+        {
+          "id": "item-1764450932669-8",
+          "productId": "prod-130",
+          "productName": "Sugar",
+          "quantity": 4,
+          "unit": "Kilograms",
+          "notes": null
+        },
+        {
+          "id": "item-1764450932669-9",
+          "productId": "prod-109",
+          "productName": "Salt",
+          "quantity": 0.8,
+          "unit": "Kilograms",
+          "notes": null
+        }
+      ],
+      "totalItems": 10,
+      "createdAt": "2025-11-29T21:15:32.669Z",
+      "updatedAt": "2025-11-29T21:15:32.669Z",
+      "createdBy": null,
+      "createdByName": "System",
       "completedAt": null,
       "completedBy": null,
       "deletedAt": null,
@@ -29,4 +194,3 @@
     }
   ]
 }
-
