@@ -1,20 +1,7 @@
 {
   "recipientRSVPs": [],
-  "description": "Individual RSVP records for thali recipients",
-  "note": "Tracks which days each recipient has opted in/out for meals",
-  "example": [
-    {
-      "id": "rsvp-001",
-      "recipientId": "recipient-001",
-      "recipientName": "John Doe",
-      "date": "2025-11-25",
-      "status": "confirmed",
-      "createdAt": "2025-11-20T00:00:00.000Z",
-      "updatedAt": "2025-11-20T00:00:00.000Z",
-      "cancelledAt": null,
-      "notes": null
-    }
-  ],
-  "statuses": ["pending", "confirmed", "cancelled", "completed", "no-show"]
+  "summaryByDate": {
+    "2025-11-23": 40,
+    "2025-11-24": 40
+  }
 }
-

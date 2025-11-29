@@ -17,7 +17,7 @@ data/
 ├── menus.json           # Weekly menu data
 ├── events.json          # Community events
 ├── rsvp-settings.json   # RSVP availability settings
-├── recipient-rsvps.json # Individual recipient RSVPs
+├── recipient-rsvps.json # Individual recipient RSVPs + per-day summary
 ├── carts.json           # Shopping carts (user-generated)
 └── README.md            # This file
 ```

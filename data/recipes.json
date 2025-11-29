@@ -177,6 +177,36 @@
       ],
       "createdAt": "2025-11-29T12:20:00.000Z",
       "updatedAt": "2025-11-29T12:20:00.000Z"
+    },
+    {
+      "id": "recipe-1764449564763",
+      "name": "Gajar Halwo",
+      "baseServings": 50,
+      "ingredients": [
+        {
+          "productId": "prod-003",
+          "productName": "Carrots (fresh)",
+          "quantity": 20,
+          "unitId": "kg",
+          "unitName": "Kilograms"
+        },
+        {
+          "productId": "prod-130",
+          "productName": "Sugar",
+          "quantity": 5,
+          "unitId": "kg",
+          "unitName": "Kilograms"
+        },
+        {
+          "productId": "prod-109",
+          "productName": "Salt",
+          "quantity": 1,
+          "unitId": "kg",
+          "unitName": "Kilograms"
+        }
+      ],
+      "createdAt": "2025-11-29T20:52:44.763Z",
+      "updatedAt": "2025-11-29T20:52:44.763Z"
     }
   ]
 }

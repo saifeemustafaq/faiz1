@@ -198,10 +198,12 @@
 ```json
 {
   "recipientRSVPs": [],  // Individual meal RSVPs
+  "summaryByDate": {},   // Editable per-day RSVP counts (e.g., { "2025-11-25": 42 })
   "example": {
-    "recipientId": "...", 
-    "date": "2025-11-25", 
-    "status": "confirmed"
+    "recipientRSVPs": [
+      { "recipientId": "...", "date": "2025-11-25", "status": "confirmed" }
+    ],
+    "summaryByDate": { "2025-11-25": 42 }
   }
 }
 ```

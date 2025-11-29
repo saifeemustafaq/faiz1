@@ -14,10 +14,16 @@ import {
   parseDateKey
 } from '../../lib/dateUtils';
 import styles from './page.module.css';
+import { recipeService } from '../recipe-management/services/recipeService';
+import type { Recipe } from '@/types/recipe';
 
 export default function MenuManagement() {
   const [currentMonday, setCurrentMonday] = useState<Date | null>(null);
   const [weekDays, setWeekDays] = useState<Date[]>([]);
+  const [rsvpCounts, setRsvpCounts] = useState<Record<string, number>>({});
+  const [rsvpSummaryByDate, setRsvpSummaryByDate] = useState<Record<string, number>>({});
+  const [recipientRsvpRows, setRecipientRsvpRows] = useState<Array<{ date?: string; status?: string }>>([]);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const { menuState, savedSummary, updateDay, clearDay, clearAllDays, saveMenu, toggleEventMode } = useMenu();
 
   // Initialize with current week on mount
@@ -27,6 +33,67 @@ export default function MenuManagement() {
     setCurrentMonday(monday);
     setWeekDays(getWeekDays(monday));
   }, []);
+
+  // Load recipes for dropdowns
+  useEffect(() => {
+    const loadRecipes = async () => {
+      try {
+        const all = await recipeService.getAllRecipes();
+        setRecipes(all);
+      } catch (e) {
+        console.error('Error loading recipes:', e);
+      }
+    };
+    loadRecipes();
+  }, []);
+
+  // Load RSVP counts
+  useEffect(() => {
+    const loadRSVPs = async () => {
+      try {
+        const res = await fetch('/api/data?type=recipientRsvps');
+        if (!res.ok) throw new Error('Failed to fetch RSVPs');
+        const data = await res.json();
+        const rows: Array<{ date?: string; status?: string }> =
+          Array.isArray(data.recipientRSVPs) ? data.recipientRSVPs : [];
+        setRecipientRsvpRows(rows);
+        const counts: Record<string, number> = {};
+        for (const r of rows) {
+          if (r?.date && r?.status === 'confirmed') {
+            counts[r.date] = (counts[r.date] || 0) + 1;
+          }
+        }
+        setRsvpCounts(counts);
+        // Use persisted summary if present, else fall back to computed counts
+        const persistedSummary: Record<string, number> = data.summaryByDate || {};
+        setRsvpSummaryByDate(Object.keys(persistedSummary).length ? persistedSummary : counts);
+      } catch (e) {
+        console.error('Error loading RSVPs:', e);
+      }
+    };
+    loadRSVPs();
+  }, []);
+
+  const saveRsvpSummaryForDate = async (dateKey: string, value: number) => {
+    try {
+      const updated = { ...rsvpSummaryByDate, [dateKey]: value };
+      setRsvpSummaryByDate(updated);
+      // Persist both recipient list and summary map to keep file consistent
+      const response = await fetch('/api/data?type=recipientRsvps', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          recipientRSVPs: recipientRsvpRows,
+          summaryByDate: updated,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to save RSVP summary');
+      }
+    } catch (err) {
+      console.error('Error saving RSVP summary:', err);
+    }
+  };
 
   const goToPreviousWeek = () => {
     if (currentMonday) {
@@ -61,13 +128,16 @@ export default function MenuManagement() {
         }
       });
     } else {
+      const items: { item1: string; item2: string; item3: string } = {
+        item1: current.menuItems?.item1 || '',
+        item2: current.menuItems?.item2 || '',
+        item3: current.menuItems?.item3 || '',
+      };
+      items[field as 'item1' | 'item2' | 'item3'] = value;
       updateDay(dateKey, {
         ...current,
         isEvent: false,
-        menuItems: {
-          ...current.menuItems,
-          [field]: value
-        } as any
+        menuItems: items
       });
     }
   };
@@ -88,11 +158,27 @@ export default function MenuManagement() {
   };
 
   const handleSave = () => {
-    if (currentMonday) {
-      const weekHeader = formatWeekHeader(currentMonday);
-      const dateKeys = weekDays.map(day => formatDateKey(day));
-      saveMenu(weekHeader, dateKeys);
-    }
+    const persistAll = async () => {
+      try {
+        // Persist current RSVP summary before saving menu (covers case when input hasn't blurred)
+        await fetch('/api/data?type=recipientRsvps', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            recipientRSVPs: recipientRsvpRows,
+            summaryByDate: rsvpSummaryByDate,
+          }),
+        });
+      } catch (e) {
+        console.error('Error persisting RSVP summary before save:', e);
+      }
+      if (currentMonday) {
+        const weekHeader = formatWeekHeader(currentMonday);
+        const dateKeys = weekDays.map(day => formatDateKey(day));
+        saveMenu(weekHeader, dateKeys);
+      }
+    };
+    void persistAll();
   };
 
   if (!currentMonday) {
@@ -134,10 +220,11 @@ export default function MenuManagement() {
           <div className={styles.headerCell}>Item 1</div>
           <div className={styles.headerCell}>Item 2</div>
           <div className={styles.headerCell}>Item 3</div>
+          <div className={styles.headerCell} style={{ width: '120px' }}>RSVP Count</div>
           <div className={styles.headerCell} style={{ width: '180px' }}>Actions</div>
         </div>
 
-        {weekDays.map((day, index) => {
+        {weekDays.map((day) => {
           const dateKey = formatDateKey(day);
           const dayData = menuState[dateKey];
           const isEvent = dayData?.isEvent || false;
@@ -175,34 +262,68 @@ export default function MenuManagement() {
               ) : (
                 <>
                   <div className={styles.inputCell}>
-                    <input
-                      type="text"
-                      className={styles.menuInput}
-                      placeholder="Item 1"
+                    <select
+                      className={styles.menuSelect}
                       value={dayData?.menuItems?.item1 || ''}
                       onChange={(e) => handleInputChange(dateKey, 'item1', e.target.value)}
-                    />
+                    >
+                      <option value="">Select recipe...</option>
+                      {recipes.map((r) => (
+                        <option key={r.id} value={r.name}>{r.name}</option>
+                      ))}
+                    </select>
                   </div>
                   <div className={styles.inputCell}>
-                    <input
-                      type="text"
-                      className={styles.menuInput}
-                      placeholder="Item 2"
+                    <select
+                      className={styles.menuSelect}
                       value={dayData?.menuItems?.item2 || ''}
                       onChange={(e) => handleInputChange(dateKey, 'item2', e.target.value)}
-                    />
+                    >
+                      <option value="">Select recipe...</option>
+                      {recipes.map((r) => (
+                        <option key={r.id} value={r.name}>{r.name}</option>
+                      ))}
+                    </select>
                   </div>
                   <div className={styles.inputCell}>
-                    <input
-                      type="text"
-                      className={styles.menuInput}
-                      placeholder="Item 3"
+                    <select
+                      className={styles.menuSelect}
                       value={dayData?.menuItems?.item3 || ''}
                       onChange={(e) => handleInputChange(dateKey, 'item3', e.target.value)}
-                    />
+                    >
+                      <option value="">Select recipe...</option>
+                      {recipes.map((r) => (
+                        <option key={r.id} value={r.name}>{r.name}</option>
+                      ))}
+                    </select>
                   </div>
                 </>
               )}
+
+              {/* RSVP Count */}
+              <div className={styles.rsvpCell}>
+                <input
+                  type="number"
+                  min={0}
+                  className={styles.rsvpInput}
+                  value={rsvpSummaryByDate[dateKey] ?? rsvpCounts[dateKey] ?? 0}
+                  onChange={(e) => {
+                    const next = Math.max(0, Number(e.target.value || 0));
+                    setRsvpSummaryByDate(prev => ({ ...prev, [dateKey]: next }));
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      const next = Math.max(0, Number((e.target as HTMLInputElement).value || 0));
+                      saveRsvpSummaryForDate(dateKey, next);
+                    }
+                  }}
+                  onBlur={(e) => {
+                    const next = Math.max(0, Number(e.target.value || 0));
+                    saveRsvpSummaryForDate(dateKey, next);
+                  }}
+                  aria-label={`RSVP count for ${dateKey}`}
+                />
+              </div>
 
               {/* Action Buttons */}
               <div className={styles.actionCell}>
