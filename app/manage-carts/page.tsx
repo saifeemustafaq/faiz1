@@ -116,6 +116,15 @@ export default function ManageCarts() {
     return map;
   }, [products]);
 
+  const productByName = useMemo(() => {
+    const map: Record<string, Product> = {};
+    products.forEach((p) => {
+      const key = p.name ? p.name.trim().toLowerCase() : '';
+      if (key) map[key] = p;
+    });
+    return map;
+  }, [products]);
+
   const aggregatedItems: AggregatedItem[] = useMemo(() => {
     if (!currentMonday) return [];
     const totals = new Map<string, AggregatedItem>();
@@ -139,7 +148,9 @@ export default function ManageCarts() {
           const key = `${ing.productId}|${ing.unitId}`;
           const existing = totals.get(key);
           const addQty = ing.quantity * scale;
-          const prod = productById[ing.productId];
+          const prod =
+            productById[ing.productId] ||
+            productByName[(ing.productName || '').trim().toLowerCase()];
           const store = prod?.store || null;
           const notes = prod?.notes || null;
           if (existing) {
@@ -163,7 +174,7 @@ export default function ManageCarts() {
       ...it,
       totalQuantity: Math.round(it.totalQuantity * 100) / 100,
     }));
-  }, [currentMonday, weekDays, menuState, rsvpSummaryByDate, recipeByName, productById]);
+  }, [currentMonday, weekDays, menuState, rsvpSummaryByDate, recipeByName, productById, productByName]);
 
   const downloadCSV = () => {
     const lines: string[] = [];
