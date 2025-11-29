@@ -50,6 +50,12 @@
     },
     {
       "id": 9,
+      "label": "Recipe Management",
+      "route": "/recipe-management",
+      "icon": "ChefHat"
+    },
+    {
+      "id": 10,
       "label": "Settings",
       "route": "/settings",
       "icon": "Settings"

@@ -1318,8 +1318,8 @@
       "id": "prod-011",
       "name": "Roma tomatoes",
       "category": "Produce (veg & fruit)",
-      "store": "Not Assigned",
-      "unit": "Not Assigned",
+      "store": "Costco",
+      "unit": "case",
       "notes": "",
       "createdAt": "2025-11-24T04:32:48.784Z"
     },

@@ -1,0 +1,182 @@
+{
+  "recipes": [
+    {
+      "id": "recipe-1732896000001",
+      "name": "Jeera Rice",
+      "baseServings": 50,
+      "ingredients": [
+        {
+          "productId": "prod-355",
+          "productName": "Royal Chef Extra Long Basmati Rice",
+          "quantity": 10,
+          "unitId": "lbs",
+          "unitName": "Pounds"
+        },
+        {
+          "productId": "prod-554",
+          "productName": "Cumin seeds",
+          "quantity": 4,
+          "unitId": "ounces",
+          "unitName": "Ounces"
+        },
+        {
+          "productId": "prod-590",
+          "productName": "Desi ghee",
+          "quantity": 1.5,
+          "unitId": "lbs",
+          "unitName": "Pounds"
+        }
+      ],
+      "createdAt": "2025-11-29T12:00:00.000Z",
+      "updatedAt": "2025-11-29T12:00:00.000Z"
+    },
+    {
+      "id": "recipe-1732896000002",
+      "name": "Aloo Sabzi",
+      "baseServings": 50,
+      "ingredients": [
+        {
+          "productId": "prod-138",
+          "productName": "Potatoes",
+          "quantity": 25,
+          "unitId": "lbs",
+          "unitName": "Pounds"
+        },
+        {
+          "productId": "prod-130",
+          "productName": "Onions (yellow)",
+          "quantity": 8,
+          "unitId": "lbs",
+          "unitName": "Pounds"
+        },
+        {
+          "productId": "prod-598",
+          "productName": "Turmeric powder",
+          "quantity": 3,
+          "unitId": "ounces",
+          "unitName": "Ounces"
+        },
+        {
+          "productId": "prod-162",
+          "productName": "Tomatoes",
+          "quantity": 10,
+          "unitId": "lbs",
+          "unitName": "Pounds"
+        }
+      ],
+      "createdAt": "2025-11-29T12:05:00.000Z",
+      "updatedAt": "2025-11-29T12:05:00.000Z"
+    },
+    {
+      "id": "recipe-1732896000003",
+      "name": "Dal Tadka",
+      "baseServings": 50,
+      "ingredients": [
+        {
+          "productId": "prod-329",
+          "productName": "Chickpeas (white kabuli chana)",
+          "quantity": 12,
+          "unitId": "lbs",
+          "unitName": "Pounds"
+        },
+        {
+          "productId": "prod-130",
+          "productName": "Onions (yellow)",
+          "quantity": 6,
+          "unitId": "lbs",
+          "unitName": "Pounds"
+        },
+        {
+          "productId": "prod-143",
+          "productName": "Garlic (fresh peeled)",
+          "quantity": 1,
+          "unitId": "lbs",
+          "unitName": "Pounds"
+        },
+        {
+          "productId": "prod-545",
+          "productName": "Cumin powder",
+          "quantity": 4,
+          "unitId": "ounces",
+          "unitName": "Ounces"
+        }
+      ],
+      "createdAt": "2025-11-29T12:10:00.000Z",
+      "updatedAt": "2025-11-29T12:10:00.000Z"
+    },
+    {
+      "id": "recipe-1732896000004",
+      "name": "Palak Paneer Style Curry",
+      "baseServings": 50,
+      "ingredients": [
+        {
+          "productId": "prod-014",
+          "productName": "Baby spinach",
+          "quantity": 15,
+          "unitId": "lbs",
+          "unitName": "Pounds"
+        },
+        {
+          "productId": "prod-130",
+          "productName": "Onions (yellow)",
+          "quantity": 5,
+          "unitId": "lbs",
+          "unitName": "Pounds"
+        },
+        {
+          "productId": "prod-162",
+          "productName": "Tomatoes",
+          "quantity": 8,
+          "unitId": "lbs",
+          "unitName": "Pounds"
+        },
+        {
+          "productId": "prod-446",
+          "productName": "Coriander powder",
+          "quantity": 3,
+          "unitId": "ounces",
+          "unitName": "Ounces"
+        }
+      ],
+      "createdAt": "2025-11-29T12:15:00.000Z",
+      "updatedAt": "2025-11-29T12:15:00.000Z"
+    },
+    {
+      "id": "recipe-1732896000005",
+      "name": "Masala Rice",
+      "baseServings": 50,
+      "ingredients": [
+        {
+          "productId": "prod-355",
+          "productName": "Royal Chef Extra Long Basmati Rice",
+          "quantity": 10,
+          "unitId": "lbs",
+          "unitName": "Pounds"
+        },
+        {
+          "productId": "prod-815",
+          "productName": "Green chilies",
+          "quantity": 1.5,
+          "unitId": "lbs",
+          "unitName": "Pounds"
+        },
+        {
+          "productId": "prod-770",
+          "productName": "Ginger (fresh)",
+          "quantity": 1,
+          "unitId": "lbs",
+          "unitName": "Pounds"
+        },
+        {
+          "productId": "prod-076",
+          "productName": "Bay leaves",
+          "quantity": 2,
+          "unitId": "ounces",
+          "unitName": "Ounces"
+        }
+      ],
+      "createdAt": "2025-11-29T12:20:00.000Z",
+      "updatedAt": "2025-11-29T12:20:00.000Z"
+    }
+  ]
+}

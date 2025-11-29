@@ -53,6 +53,7 @@ export async function GET(request: NextRequest) {
     carts: 'carts.json',
     'new-additions': 'new-additions.json',
     'extra-items': 'extra-items.json',
+    recipes: 'recipes.json',
   };
 
   const filename = fileMap[type];
@@ -93,6 +94,7 @@ export async function POST(request: NextRequest) {
     carts: 'carts.json',
     'new-additions': 'new-additions.json',
     'extra-items': 'extra-items.json',
+    recipes: 'recipes.json',
   };
 
   const filename = fileMap[type];

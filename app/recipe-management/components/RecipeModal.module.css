@@ -1,0 +1,358 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(26, 26, 26, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.modal {
+  background: var(--ivory-bg, #FFFFF0);
+  border: 2px solid var(--black-text, #1A1A1A);
+  border-radius: 4px;
+  box-shadow: 8px 8px 0px var(--black-text, #1A1A1A);
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modalHeader {
+  padding: 24px;
+  border-bottom: 2px solid var(--black-text, #1A1A1A);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--ivory-card, #FAF8F3);
+}
+
+.modalTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--black-text, #1A1A1A);
+  margin: 0;
+}
+
+.closeButton {
+  padding: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--black-text, #1A1A1A);
+  transition: all 0.2s ease-in-out;
+  border-radius: 4px;
+}
+
+.closeButton:hover {
+  background: var(--ivory-darker, #F5F3ED);
+}
+
+.modalBody {
+  padding: 24px;
+}
+
+.formGroup {
+  margin-bottom: 24px;
+}
+
+.label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--black-text, #1A1A1A);
+  margin-bottom: 8px;
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  color: var(--black-text, #1A1A1A);
+  background: var(--ivory-bg, #FFFFF0);
+  border: 2px solid var(--black-text, #1A1A1A);
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.input:focus {
+  outline: 2px solid var(--golden-main, #D4AF37);
+  outline-offset: 2px;
+  border-color: var(--golden-main, #D4AF37);
+}
+
+.select {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  color: var(--black-text, #1A1A1A);
+  background: var(--ivory-bg, #FFFFF0);
+  border: 2px solid var(--black-text, #1A1A1A);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.select:focus {
+  outline: 2px solid var(--golden-main, #D4AF37);
+  outline-offset: 2px;
+  border-color: var(--golden-main, #D4AF37);
+}
+
+/* Ingredients Section */
+.ingredientsSection {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 2px solid var(--ivory-border, #EBE8DC);
+}
+
+.ingredientsSectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--black-text, #1A1A1A);
+  margin: 0;
+}
+
+.ingredientsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.ingredientRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  gap: 12px;
+  align-items: end;
+  padding: 12px;
+  background: var(--ivory-card, #FAF8F3);
+  border: 2px solid var(--ivory-border, #EBE8DC);
+  border-radius: 4px;
+}
+
+.ingredientRow:hover {
+  border-color: var(--black-text, #1A1A1A);
+}
+
+.removeButton {
+  padding: 8px;
+  background: transparent;
+  border: 2px solid var(--black-text, #1A1A1A);
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--black-text, #1A1A1A);
+  transition: all 0.2s ease-in-out;
+}
+
+.removeButton:hover {
+  background: #8B3A3A;
+  border-color: #8B3A3A;
+  color: white;
+}
+
+.addIngredientButton {
+  padding: 10px 20px;
+  border: 2px solid var(--black-text, #1A1A1A);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--black-text, #1A1A1A);
+}
+
+.addIngredientButton:hover {
+  background: var(--ivory-darker, #F5F3ED);
+}
+
+/* Modal Footer */
+.modalFooter {
+  padding: 24px;
+  border-top: 2px solid var(--black-text, #1A1A1A);
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  background: var(--ivory-card, #FAF8F3);
+}
+
+.button {
+  padding: 12px 24px;
+  border: 2px solid var(--black-text, #1A1A1A);
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.cancelButton {
+  background: transparent;
+  color: var(--black-text, #1A1A1A);
+}
+
+.cancelButton:hover {
+  background: var(--ivory-darker, #F5F3ED);
+}
+
+.saveButton {
+  background: var(--golden-main, #D4AF37);
+  color: var(--black-text, #1A1A1A);
+  border-color: var(--golden-main, #D4AF37);
+}
+
+.saveButton:hover {
+  background: var(--golden-hover, #C5A028);
+  border-color: var(--golden-hover, #C5A028);
+}
+
+.saveButton:disabled {
+  background: var(--golden-light, #E5C158);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.editButton {
+  background: var(--golden-main, #D4AF37);
+  color: var(--black-text, #1A1A1A);
+  border-color: var(--golden-main, #D4AF37);
+}
+
+.editButton:hover {
+  background: var(--golden-hover, #C5A028);
+  border-color: var(--golden-hover, #C5A028);
+}
+
+.deleteButton {
+  background: transparent;
+  color: #8B3A3A;
+  border-color: #8B3A3A;
+}
+
+.deleteButton:hover {
+  background: #8B3A3A;
+  color: white;
+}
+
+/* View Mode Styles */
+.viewSection {
+  margin-bottom: 24px;
+}
+
+.viewRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--ivory-card, #FAF8F3);
+  border-radius: 4px;
+  border: 2px solid var(--ivory-border, #EBE8DC);
+}
+
+.viewLabel {
+  font-weight: 600;
+  color: var(--black-secondary, #2D2D2D);
+  font-size: 14px;
+}
+
+.viewValue {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--black-text, #1A1A1A);
+}
+
+.viewIngredientsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.viewIngredientRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: var(--ivory-card, #FAF8F3);
+  border-radius: 4px;
+  border: 2px solid var(--ivory-border, #EBE8DC);
+  transition: all 0.2s ease-in-out;
+}
+
+.viewIngredientRow:hover {
+  border-color: var(--golden-main, #D4AF37);
+}
+
+.viewIngredientRow .ingredientName {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--black-text, #1A1A1A);
+}
+
+.viewIngredientRow .ingredientQuantity {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--golden-main, #D4AF37);
+}
+
+.errorMessage {
+  color: #8B3A3A;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .modal {
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .modalHeader,
+  .modalBody,
+  .modalFooter {
+    padding: 16px;
+  }
+
+  .ingredientRow {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .modalFooter {
+    flex-direction: column;
+  }
+
+  .button {
+    width: 100%;
+  }
+}
+

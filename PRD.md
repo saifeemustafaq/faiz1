@@ -114,3 +114,133 @@ for the “Add New Item” sidebar option. This section should be divided into f
 - Use modal dialogs for all add/edit actions.
 
 If anything is unclear or if additional UI details are needed, please request clarification before starting implementation.
+
+## Sidebar Section: Recipe Management
+
+Add a new section in the sidebar called **“Recipe Management”**.
+
+Inside this section, there should be **two clear sub-sections**:
+
+1. **Recipes Setup** – for adding and maintaining recipes
+2. **Ingredients Calculator** – for selecting a recipe and getting the required ingredient quantities based on the number of people
+
+We are **not** defining any formal roles or permissions here. Think of it as two kinds of usage:
+
+* Someone who **creates/maintains recipes**
+* Someone who **uses those recipes to calculate how much to cook/buy**
+
+Both can access this tab and use whichever section they need.
+
+---
+
+## 1. Sub-Section: Recipes Setup
+
+This is where a user creates and maintains the **baseline recipe** for each dish.
+
+### What the user can do here
+
+* **Add a new dish (recipe)**
+
+  * Enter the **dish name**.
+  * Specify the **base number of people** this recipe is defined for (e.g. 50 people).
+  * Add a list of **ingredients** required for that base number of people.
+
+    * Each ingredient must be chosen from the **existing inventory list** (no free-text items).
+    * For each ingredient, the user defines:
+
+      * The **quantity** needed for the base number of people.
+      * The **unit** (e.g. kg, g, liters, pieces, etc.).
+
+* **Edit an existing recipe**
+
+  * Change the base number of people if needed.
+  * Add/remove ingredients.
+  * Update ingredient quantities or units.
+
+* **View list of all recipes**
+
+  * Show all dishes that have been set up as recipes.
+  * Each item should show at least:
+
+    * Dish name
+    * Base number of people the recipe is defined for (e.g. “Defined for 50 people”)
+
+### Example
+
+If I’m setting up a dish called **“Tomato Potato Curry”**:
+
+* I define that the recipe is for **50 people**.
+* I add ingredients like:
+
+  * Tomatoes – 10 kg (for 50 people)
+  * Potatoes – 15 kg (for 50 people)
+  * Oil – 2 liters (for 50 people)
+
+This becomes the **baseline recipe** for “Tomato Potato Curry”.
+
+---
+
+## 2. Sub-Section: Ingredients Calculator
+
+This section is for people who want to know **how much of each ingredient to buy/use** for a specific dish, based on **how many people** will be eating.
+
+### What the user can do here
+
+* **Select a dish** from the existing recipes list (created in the Recipes Setup section).
+
+* See the **base information**:
+
+  * Dish name.
+  * Base number of people the recipe was defined for (e.g. “This recipe is defined for 50 people”).
+
+* **Adjust the number of people to serve**:
+
+  * There should be a field (or slider) where the user can set **“Number of people”**.
+  * By default, it can start at the base value (e.g. 50), but the user can change it to anything else (e.g. 70, 120, etc.).
+
+* **See the ingredients automatically recalculated**:
+
+  * When the user changes the number of people, the quantity of each ingredient should update automatically based on simple scaling.
+  * The ingredient list should show:
+
+    * Ingredient name (from inventory)
+    * Unit (kg, g, liters, pieces, etc.)
+    * **Quantity required for the chosen number of people**
+
+### Example
+
+Using the previous recipe:
+
+* Baseline: “Tomato Potato Curry” for **50 people**:
+
+  * Tomatoes – 10 kg
+  * Potatoes – 15 kg
+  * Oil – 2 liters
+
+If the user sets **Number of people = 70**:
+
+* Tomatoes → scaled from 10 kg
+* Potatoes → scaled from 15 kg
+* Oil → scaled from 2 liters
+
+The UI should show the **new calculated quantities** for 70 people.
+
+If they change it to **100 people**, it should again recalculate automatically.
+
+---
+
+## Key Points for the Developer
+
+* **One sidebar item**: “Recipe Management”
+
+* **Inside it, two clear sections**:
+
+  1. **Recipes Setup** – define/edit recipes and their base quantities.
+  2. **Ingredients Calculator** – select a dish, set number of people, see scaled ingredient quantities.
+
+* Recipes should **always use ingredients from the existing inventory list** – no custom ingredients.
+
+* The user journey of “adding a recipe” is like defining the **baseline recipe for a fixed number of people**.
+
+* The “calculator” journey is simply **changing the number of people** and seeing ingredient quantities change accordingly.
+
