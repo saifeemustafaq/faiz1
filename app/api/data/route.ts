@@ -51,6 +51,8 @@ export async function GET(request: NextRequest) {
     rsvpSettings: 'rsvp-settings.json',
     recipientRsvps: 'recipient-rsvps.json',
     carts: 'carts.json',
+    'new-additions': 'new-additions.json',
+    'extra-items': 'extra-items.json',
   };
 
   const filename = fileMap[type];
@@ -89,6 +91,8 @@ export async function POST(request: NextRequest) {
     rsvpSettings: 'rsvp-settings.json',
     recipientRsvps: 'recipient-rsvps.json',
     carts: 'carts.json',
+    'new-additions': 'new-additions.json',
+    'extra-items': 'extra-items.json',
   };
 
   const filename = fileMap[type];

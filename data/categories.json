@@ -14,19 +14,6 @@
       "deletedBy": null
     },
     {
-      "id": "cat-002",
-      "name": "Fresh herbs & aromatics",
-      "productCount": 0,
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z",
-      "createdBy": null,
-      "createdByName": "System",
-      "updatedBy": null,
-      "updatedByName": null,
-      "deletedAt": null,
-      "deletedBy": null
-    },
-    {
       "id": "cat-003",
       "name": "Dairy and Eggs",
       "productCount": 0,

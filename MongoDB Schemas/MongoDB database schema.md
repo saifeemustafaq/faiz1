@@ -387,7 +387,6 @@ This document provides complete database design specifications for a MongoDB dat
 
 **Seed Data** (from data/categories.json):
 - Produce (veg & fruit)
-- Fresh herbs & aromatics
 - Dairy and Eggs
 - Bakery
 - Dry goods & grains

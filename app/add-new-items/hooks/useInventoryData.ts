@@ -1,15 +1,17 @@
-// Custom hook for managing inventory data (products, categories, stores, units)
+// Custom hook for managing inventory data (products, categories, stores, units, extra items)
 // Uses service layer with JSON file persistence via API routes
 
 import { useState, useEffect } from 'react';
-import { Product, Category, StoreItem, Unit } from '../types';
+import { Product, Category, StoreItem, Unit, ExtraItem } from '../types';
 import { InventoryInitService, ProductService, CategoryService, StoreService, UnitService } from '../services/inventoryService';
+import { extraItemsService } from '../services/extraItemsService';
 
 export function useInventoryData() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [stores, setStores] = useState<StoreItem[]>([]);
   const [units, setUnits] = useState<Unit[]>([]);
+  const [extraItems, setExtraItems] = useState<ExtraItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [initialized, setInitialized] = useState(false);
 
@@ -19,11 +21,13 @@ export function useInventoryData() {
       try {
         setIsLoading(true);
         const data = await InventoryInitService.initialize();
+        const extraItemsData = await extraItemsService.fetchExtraItems();
         
         setProducts(data.products);
         setCategories(data.categories);
         setStores(data.stores);
         setUnits(data.units);
+        setExtraItems(extraItemsData);
         setInitialized(true);
       } catch (error) {
         console.error('Error loading inventory data:', error);
@@ -63,6 +67,13 @@ export function useInventoryData() {
     }
   }, [units, initialized, isLoading]);
 
+  // Save extra items when they change (after initial load)
+  useEffect(() => {
+    if (initialized && !isLoading) {
+      extraItemsService.saveExtraItems(extraItems);
+    }
+  }, [extraItems, initialized, isLoading]);
+
   return {
     products,
     setProducts,
@@ -72,6 +83,8 @@ export function useInventoryData() {
     setStores,
     units,
     setUnits,
+    extraItems,
+    setExtraItems,
     isLoading,
   };
 }

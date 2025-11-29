@@ -1,0 +1,49 @@
+{
+  "requests": [
+    {
+      "id": "req-001",
+      "itemName": "Organic Quinoa",
+      "suggestedCategory": "Dry goods & grains",
+      "notes": "Would be great to have organic quinoa available for healthy meal prep",
+      "requestedBy": "Sarah Johnson",
+      "requestedByEmail": "sarah.j@example.com",
+      "status": "pending",
+      "createdAt": "2025-11-26T10:30:00.000Z"
+    },
+    {
+      "id": "req-002",
+      "itemName": "Tamarind paste",
+      "suggestedCategory": "Condiments & sauces",
+      "notes": "Essential for authentic Indian cooking. Currently not available in inventory.",
+      "requestedBy": "Raj Patel",
+      "requestedByEmail": "raj.patel@example.com",
+      "status": "pending",
+      "createdAt": "2025-11-26T09:15:00.000Z"
+    },
+    {
+      "id": "req-003",
+      "itemName": "Almond milk",
+      "suggestedCategory": "Dairy and Eggs",
+      "notes": "Dairy-free alternative for those with lactose intolerance",
+      "requestedBy": "Emily Chen",
+      "requestedByEmail": "emily.chen@example.com",
+      "status": "approved",
+      "createdAt": "2025-11-25T14:20:00.000Z",
+      "reviewedAt": "2025-11-26T08:00:00.000Z",
+      "reviewedBy": "Admin"
+    },
+    {
+      "id": "req-004",
+      "itemName": "Dragon fruit",
+      "suggestedCategory": "Produce (veg & fruit)",
+      "notes": "Exotic fruit for special occasions",
+      "requestedBy": "Michael Torres",
+      "requestedByEmail": "m.torres@example.com",
+      "status": "rejected",
+      "createdAt": "2025-11-24T16:45:00.000Z",
+      "reviewedAt": "2025-11-25T10:30:00.000Z",
+      "reviewedBy": "Admin",
+      "rejectionReason": "Not commonly used in our recipes. Too expensive to stock regularly."
+    }
+  ]
+}

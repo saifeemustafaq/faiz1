@@ -109,7 +109,7 @@ The Products tab in "Add New Items" now organizes products by category with coll
 ## 🎯 **User Experience**
 
 ### **Benefits:**
-1. **Better Organization** - 150 products grouped into 13 categories
+1. **Better Organization** - 150 products grouped into 12 categories
 2. **Reduced Scrolling** - Collapse categories you're not working on
 3. **Quick Navigation** - Find items by category instantly
 4. **Visual Clarity** - Clear separation between categories
@@ -129,7 +129,7 @@ The Products tab in "Add New Items" now organizes products by category with coll
 With your 150 imported products:
 
 ```
-▼ Produce (veg & fruit) - 25 items
+▼ Produce (veg & fruit) - 32 items
 ▼ Spices & masalas (ground) - 22 items
 ▼ Spices (whole) - 18 items
 ▼ Dry goods & grains - 13 items
@@ -138,7 +138,6 @@ With your 150 imported products:
 ▼ Legumes & pulses (dry) - 10 items
 ▼ Dairy and Eggs - 9 items
 ▼ Nuts & baking - 8 items
-▼ Fresh herbs & aromatics - 7 items
 ▼ Bakery - 7 items
 ▼ Oils & fats - 4 items
 ▼ Frozen - 4 items

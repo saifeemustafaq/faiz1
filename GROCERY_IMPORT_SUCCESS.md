@@ -14,7 +14,7 @@ All your grocery items have been successfully imported and organized by category
 
 | Category | Count |
 |----------|-------|
-| Produce (veg & fruit) | 25 items |
+| Produce (veg & fruit) | 32 items |
 | Spices & masalas (ground) | 22 items |
 | Spices (whole) | 18 items |
 | Dry goods & grains | 13 items |
@@ -23,7 +23,6 @@ All your grocery items have been successfully imported and organized by category
 | Legumes & pulses (dry) | 10 items |
 | Dairy and Eggs | 9 items |
 | Nuts & baking | 8 items |
-| Fresh herbs & aromatics | 7 items |
 | Bakery | 7 items |
 | Oils & fats | 4 items |
 | Frozen | 4 items |
@@ -40,23 +39,22 @@ All your grocery items have been successfully imported and organized by category
 
 ### **2. Updated Categories**
 **File:** `data/categories.json`
-- **13 categories** matching your grocery list
+- **12 categories** matching your grocery list
 - Ready for use in the app
 
 **Categories:**
 1. Produce (veg & fruit)
-2. Fresh herbs & aromatics
-3. Dairy and Eggs
-4. Bakery
-5. Dry goods & grains
-6. Legumes & pulses (dry)
-7. Oils & fats
-8. Spices (whole)
-9. Spices & masalas (ground)
-10. Condiments & sauces
-11. Nuts & baking
-12. Frozen
-13. Canned & jarred
+2. Dairy and Eggs
+3. Bakery
+4. Dry goods & grains
+5. Legumes & pulses (dry)
+6. Oils & fats
+7. Spices (whole)
+8. Spices & masalas (ground)
+9. Condiments & sauces
+10. Nuts & baking
+11. Frozen
+12. Canned & jarred
 
 ### **3. Products Imported**
 **File:** `data/products.json`
@@ -167,43 +165,40 @@ You can edit `data/products.json` directly to bulk-assign common patterns:
 
 ## 📊 **Category Details**
 
-### **1. Produce (veg & fruit) - 25 items**
-Bell peppers, Broccoli, Carrots, Cucumbers, Green chilies, Lemons, Onions, Potatoes, Tomatoes, Peppers, Spinach, Cabbage, Cauliflower, Celery, Corn, Green beans, Lettuce, Gourd, Eggplant, etc.
+### **1. Produce (veg & fruit) - 32 items**
+Bell peppers, Broccoli, Carrots, Cucumbers, Green chilies, Lemons, Onions, Potatoes, Tomatoes, Peppers, Spinach, Cabbage, Cauliflower, Celery, Corn, Green beans, Lettuce, Gourd, Eggplant, Basil, Cilantro, Curry leaves, Garlic, Ginger, Mint, Parsley, etc.
 
-### **2. Fresh herbs & aromatics - 7 items**
-Basil, Cilantro, Curry leaves, Garlic, Ginger, Mint, Parsley
-
-### **3. Dairy and Eggs - 9 items**
+### **2. Dairy and Eggs - 9 items**
 Butter, Half & half, Heavy cream, Milk, Yogurt, Cream cheese, Shredded cheese, Sour cream, Eggs
 
-### **4. Bakery - 7 items**
+### **3. Bakery - 7 items**
 Dinner rolls, Naan, Pav buns, Taco shells, Tortillas, Bread loaves, Burger buns
 
-### **5. Dry goods & grains - 13 items**
+### **4. Dry goods & grains - 13 items**
 Besan, Macaroni, Mashed potato powder, Basmati rice, Flour (white, almond, rice), Atta, Pasta, Corn starch, Dalia
 
-### **6. Legumes & pulses (dry) - 10 items**
+### **5. Legumes & pulses (dry) - 10 items**
 Black-eyed peas, Moong, Chickpeas, Masoor dal, Toor dal, Urad dal, Chana dal, Rajma
 
-### **7. Oils & fats - 4 items**
+### **6. Oils & fats - 4 items**
 Desi ghee, Olive oil, Vegetable oil, Corn oil
 
-### **8. Spices (whole) - 18 items**
+### **7. Spices (whole) - 18 items**
 Bay leaves, Cardamom, Cinnamon, Cloves, Coriander seeds, Cumin seeds, Saffron, Star anise, Black pepper, Fennel seeds, Fenugreek, Chilies, Kokum, Sesame seeds, Mustard seeds
 
-### **9. Spices & masalas (ground) - 22 items**
+### **8. Spices & masalas (ground) - 22 items**
 Biriyani masala, Black pepper powder, Coriander powder, Cumin powder, Dried herbs, Garlic powder, Lemon pepper, Onion powder, Red chili powder, Turmeric, Amchur, Garam masala, Ginger powder, Paprika, Pav bhaji masala, Salt, Taco seasoning, White pepper, Chapli kebab masala, Kashmiri chili, Red chili flakes, Tandoori masala
 
-### **10. Condiments & sauces - 12 items**
+### **9. Condiments & sauces - 12 items**
 Soy sauce, Garlic salt, Lemon juice, Maggi cubes, Mayonnaise, Red chili garlic sauce, Rose water, Thai curry paste, Ketchup, Vinegar, Hot chili sauce
 
-### **11. Nuts & baking - 8 items**
+### **10. Nuts & baking - 8 items**
 Milk powder, Almonds, Sugar, Walnuts, Cashews, Dry mango slices, Jaggery, Peanuts
 
-### **12. Frozen - 4 items**
+### **11. Frozen - 4 items**
 Bhatura, Peas, Cluster beans, Tindora
 
-### **13. Canned & jarred - 11 items**
+### **12. Canned & jarred - 11 items**
 Black beans, Coconut milk, Corn, Cranberry sauce, Milkmaid, Pineapple, Red beans, Black olives, Water chestnuts, Salsa, Cream-style corn
 
 ---
@@ -241,7 +236,7 @@ Save the file, refresh the app, done!
 ## 🎉 **Summary**
 
 ✅ **150 products imported**  
-✅ **13 categories created**  
+✅ **12 categories created**  
 ✅ **All data persistent in JSON files**  
 ✅ **Ready to use in your app**  
 ✅ **MongoDB migration-ready**  

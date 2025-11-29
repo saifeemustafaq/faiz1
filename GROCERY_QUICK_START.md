@@ -2,7 +2,7 @@
 
 ## ✅ **What Just Happened**
 
-**150 grocery items** imported and organized into **13 categories**!
+**150 grocery items** imported and organized into **12 categories**!
 
 ---
 
@@ -10,9 +10,9 @@
 
 ```
 Total Products: 150
-Total Categories: 13
+Total Categories: 12
 
-Largest Category: Produce (veg & fruit) - 25 items
+Largest Category: Produce (veg & fruit) - 32 items
 Smallest Category: Oils & fats, Frozen - 4 items each
 ```
 
@@ -24,7 +24,7 @@ Smallest Category: Oils & fats, Frozen - 4 items each
 ```
 data/
 ├── products.json          ✅ 150 products
-├── categories.json        ✅ 13 categories
+├── categories.json        ✅ 12 categories
 ├── stores.json            ✅ Ready for stores
 ├── units.json             ✅ Ready for units
 └── grocery-items-cleaned.csv  ✅ Cleaned source data
@@ -40,20 +40,19 @@ scripts/
 
 ## 🎯 **What's Ready**
 
-✅ **Categories (13):**
+✅ **Categories (12):**
 1. Produce (veg & fruit)
-2. Fresh herbs & aromatics  
-3. Dairy and Eggs
-4. Bakery
-5. Dry goods & grains
-6. Legumes & pulses (dry)
-7. Oils & fats
-8. Spices (whole)
-9. Spices & masalas (ground)
-10. Condiments & sauces
-11. Nuts & baking
-12. Frozen
-13. Canned & jarred
+2. Dairy and Eggs
+3. Bakery
+4. Dry goods & grains
+5. Legumes & pulses (dry)
+6. Oils & fats
+7. Spices (whole)
+8. Spices & masalas (ground)
+9. Condiments & sauces
+10. Nuts & baking
+11. Frozen
+12. Canned & jarred
 
 ✅ **Products (150):**
 - Each has unique ID (prod-001 to prod-150)
@@ -146,7 +145,7 @@ node scripts/import-grocery-items.js
 
 | Category | Count | Example Items |
 |----------|-------|---------------|
-| Produce (veg & fruit) | 25 | Bell peppers, Broccoli, Carrots, Onions, Potatoes |
+| Produce (veg & fruit) | 32 | Bell peppers, Broccoli, Carrots, Onions, Potatoes, Herbs |
 | Spices & masalas (ground) | 22 | Biriyani masala, Cumin powder, Turmeric, Garam masala |
 | Spices (whole) | 18 | Bay leaves, Cardamom, Cinnamon, Cumin seeds, Saffron |
 | Dry goods & grains | 13 | Basmati rice, Pasta, Flour, Besan, Atta |
@@ -155,7 +154,6 @@ node scripts/import-grocery-items.js
 | Legumes & pulses | 10 | Moong, Chickpeas, Toor dal, Rajma, Chana dal |
 | Dairy and Eggs | 9 | Milk, Butter, Cream, Yogurt, Cheese, Eggs |
 | Nuts & baking | 8 | Almonds, Cashews, Sugar, Jaggery, Peanuts |
-| Fresh herbs & aromatics | 7 | Cilantro, Mint, Basil, Ginger, Garlic |
 | Bakery | 7 | Naan, Bread, Buns, Tortillas, Rolls |
 | Oils & fats | 4 | Ghee, Olive oil, Vegetable oil, Corn oil |
 | Frozen | 4 | Peas, Bhatura, Cluster beans, Tindora |

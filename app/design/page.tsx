@@ -15,7 +15,8 @@ import {
   Info,
   AlertTriangle,
   Star,
-  ChevronDown
+  ChevronDown,
+  X
 } from 'lucide-react';
 import './design.css';
 
@@ -554,6 +555,203 @@ export default function DesignGuidePage() {
             <button className="btn btn-icon btn-primary" aria-label="Increase">
               <Plus size={20} />
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Tables */}
+      <section className="design-section">
+        <h2>Data Tables</h2>
+        <p style={{ marginBottom: '24px', color: '#4A4A4A' }}>
+          Grid-based table layout with responsive mobile behavior
+        </p>
+        
+        <div className="component-group">
+          <h3>View Mode Table (Read-Only)</h3>
+          <div className="table-container">
+            <div className="table-header">
+              <div className="table-header-cell">Item</div>
+              <div className="table-header-cell">Category</div>
+              <div className="table-header-cell">Quantity</div>
+              <div className="table-header-cell">Status</div>
+              <div className="table-header-cell">Actions</div>
+            </div>
+
+            <div className="table-row">
+              <div className="table-cell" data-label="Item">Organic Tomatoes</div>
+              <div className="table-cell" data-label="Category">Vegetables</div>
+              <div className="table-cell" data-label="Quantity">25 lbs</div>
+              <div className="table-cell" data-label="Status">
+                <span className="badge badge-green">In Stock</span>
+              </div>
+              <div className="table-cell" data-label="Actions">
+                <button className="btn btn-icon btn-secondary" aria-label="Edit">
+                  <Edit size={16} />
+                </button>
+              </div>
+            </div>
+
+            <div className="table-row">
+              <div className="table-cell" data-label="Item">Basmati Rice</div>
+              <div className="table-cell" data-label="Category">Grains</div>
+              <div className="table-cell" data-label="Quantity">50 lbs</div>
+              <div className="table-cell" data-label="Status">
+                <span className="badge badge-green">In Stock</span>
+              </div>
+              <div className="table-cell" data-label="Actions">
+                <button className="btn btn-icon btn-secondary" aria-label="Edit">
+                  <Edit size={16} />
+                </button>
+              </div>
+            </div>
+
+            <div className="table-row">
+              <div className="table-cell" data-label="Item">Olive Oil</div>
+              <div className="table-cell" data-label="Category">Oils</div>
+              <div className="table-cell" data-label="Quantity">0 gal</div>
+              <div className="table-cell" data-label="Status">
+                <span className="badge badge-red">Out of Stock</span>
+              </div>
+              <div className="table-cell" data-label="Actions">
+                <button className="btn btn-icon btn-secondary" aria-label="Edit">
+                  <Edit size={16} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="component-group">
+          <h3>Edit Mode Table (With Input Fields)</h3>
+          <div className="table-container">
+            <div className="table-header">
+              <div className="table-header-cell" style={{ width: '140px' }}>Day</div>
+              <div className="table-header-cell">Item 1</div>
+              <div className="table-header-cell">Item 2</div>
+              <div className="table-header-cell">Item 3</div>
+              <div className="table-header-cell" style={{ width: '180px' }}>Actions</div>
+            </div>
+
+            <div className="table-row-edit">
+              <div className="table-cell-day" data-label="Day">Mon - Nov 24</div>
+              <div className="table-cell-input" data-label="Item 1">
+                <input type="text" className="input table-input" placeholder="Item 1" defaultValue="Daal" />
+              </div>
+              <div className="table-cell-input" data-label="Item 2">
+                <input type="text" className="input table-input" placeholder="Item 2" defaultValue="Roti" />
+              </div>
+              <div className="table-cell-input" data-label="Item 3">
+                <input type="text" className="input table-input" placeholder="Item 3" defaultValue="Salad" />
+              </div>
+              <div className="table-cell-actions" data-label="Actions">
+                <button className="btn btn-secondary btn-small">Event</button>
+                <button className="btn btn-danger btn-small">
+                  <X size={14} />
+                  Clear
+                </button>
+              </div>
+            </div>
+
+            <div className="table-row-edit">
+              <div className="table-cell-day" data-label="Day">Tue - Nov 25</div>
+              <div className="table-cell-input" data-label="Item 1">
+                <input type="text" className="input table-input" placeholder="Item 1" defaultValue="Sabzi" />
+              </div>
+              <div className="table-cell-input" data-label="Item 2">
+                <input type="text" className="input table-input" placeholder="Item 2" defaultValue="Rice" />
+              </div>
+              <div className="table-cell-input" data-label="Item 3">
+                <input type="text" className="input table-input" placeholder="Item 3" />
+              </div>
+              <div className="table-cell-actions" data-label="Actions">
+                <button className="btn btn-secondary btn-small">Event</button>
+                <button className="btn btn-danger btn-small">
+                  <X size={14} />
+                  Clear
+                </button>
+              </div>
+            </div>
+
+            <div className="table-row-edit">
+              <div className="table-cell-day" data-label="Day">Wed - Nov 26</div>
+              <div className="table-cell-input" data-label="Item 1">
+                <input type="text" className="input table-input" placeholder="Item 1" />
+              </div>
+              <div className="table-cell-input" data-label="Item 2">
+                <input type="text" className="input table-input" placeholder="Item 2" />
+              </div>
+              <div className="table-cell-input" data-label="Item 3">
+                <input type="text" className="input table-input" placeholder="Item 3" />
+              </div>
+              <div className="table-cell-actions" data-label="Actions">
+                <button className="btn btn-secondary btn-small">Event</button>
+                <button className="btn btn-danger btn-small">
+                  <X size={14} />
+                  Clear
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="table-bottom-actions">
+            <button className="btn btn-success">
+              <Check size={20} />
+              Save Menu
+            </button>
+            <button className="btn btn-danger">
+              Clear All
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Dropdowns */}
+      <section className="design-section">
+        <h2>Dropdowns & Selects</h2>
+        
+        <div className="component-group">
+          <h3>Standard Dropdowns</h3>
+          <div className="dropdown-examples">
+            <div className="input-group">
+              <label htmlFor="unit-select">Unit</label>
+              <select id="unit-select" className="input">
+                <option value="">Select a unit</option>
+                <option value="kg">Kilogram (kg)</option>
+                <option value="lb">Pound (lb)</option>
+                <option value="oz">Ounce (oz)</option>
+                <option value="g">Gram (g)</option>
+                <option value="l">Liter (L)</option>
+                <option value="ml">Milliliter (mL)</option>
+                <option value="gal">Gallon (gal)</option>
+                <option value="piece">Piece</option>
+                <option value="dozen">Dozen</option>
+              </select>
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="category-select">Category</label>
+              <select id="category-select" className="input">
+                <option value="">Select a category</option>
+                <option value="vegetables">Vegetables</option>
+                <option value="fruits">Fruits</option>
+                <option value="dairy">Dairy</option>
+                <option value="grains">Grains</option>
+                <option value="spices">Spices</option>
+                <option value="oils">Oils</option>
+                <option value="legumes">Legumes</option>
+              </select>
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="store-select">Store</label>
+              <select id="store-select" className="input">
+                <option value="">Select a store</option>
+                <option value="costco">Costco</option>
+                <option value="restaurant-depot">Restaurant Depot</option>
+                <option value="whole-foods">Whole Foods</option>
+                <option value="local-market">Local Market</option>
+              </select>
+            </div>
           </div>
         </div>
       </section>

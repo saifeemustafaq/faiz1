@@ -630,6 +630,132 @@ textarea.input {
   box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
 }
 
+/* Tables */
+.table-container {
+  background: #FAF8F3;
+  border: 2px solid #1A1A1A;
+  border-radius: 4px;
+  box-shadow: 4px 4px 0px #1A1A1A;
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 100px;
+  gap: 16px;
+  padding: 16px;
+  background: #F5F3ED;
+  border-bottom: 2px solid #1A1A1A;
+}
+
+.table-header-cell {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1A1A1A;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* View Mode Table Row */
+.table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 100px;
+  gap: 16px;
+  padding: 16px;
+  border-bottom: 1px solid #EBE8DC;
+  transition: background 0.2s ease-in-out;
+  min-height: 60px;
+  align-items: center;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.table-row:hover {
+  background: #FFFFF0;
+}
+
+.table-cell {
+  font-size: 0.875rem;
+  color: #1A1A1A;
+  display: flex;
+  align-items: center;
+}
+
+/* Edit Mode Table Row */
+.table-row-edit {
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr 1fr 180px;
+  gap: 16px;
+  padding: 16px;
+  border-bottom: 1px solid #EBE8DC;
+  min-height: 60px;
+  align-items: center;
+}
+
+.table-row-edit:last-child {
+  border-bottom: none;
+}
+
+.table-cell-day {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.table-cell-input {
+  display: flex;
+  align-items: center;
+}
+
+.table-input {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.table-cell-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-small {
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  gap: 4px;
+}
+
+.table-bottom-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+/* Dropdowns */
+.dropdown-examples {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+select.input {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%231A1A1A' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+select.input:hover {
+  background-color: #FAF8F3;
+}
+
 /* Empty State */
 .empty-state {
   display: flex;
@@ -660,6 +786,18 @@ textarea.input {
   margin-bottom: 24px;
 }
 
+/* Button Variants */
+.btn-danger-outline {
+  background: transparent;
+  border-color: #8B3A3A;
+  color: #8B3A3A;
+}
+
+.btn-danger-outline:hover:not(:disabled) {
+  background: #8B3A3A;
+  color: #FFFFF0;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .design-guide {
@@ -685,6 +823,86 @@ textarea.input {
 
   .icon-grid {
     grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
+
+  /* View Mode Table responsive */
+  .table-header {
+    display: none;
+  }
+
+  .table-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    border: 2px solid #EBE8DC;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    padding: 16px;
+  }
+
+  .table-row:last-child {
+    border-bottom: 2px solid #EBE8DC;
+  }
+
+  .table-cell {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .table-cell::before {
+    content: attr(data-label);
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #4A4A4A;
+    letter-spacing: 0.05em;
+  }
+
+  /* Edit Mode Table responsive */
+  .table-row-edit {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    border: 2px solid #EBE8DC;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  .table-row-edit:last-child {
+    border-bottom: 2px solid #EBE8DC;
+  }
+
+  .table-cell-day {
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .table-cell-input,
+  .table-cell-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .table-cell-input::before,
+  .table-cell-actions::before {
+    content: attr(data-label);
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #4A4A4A;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+
+  .table-cell-actions {
+    gap: 8px;
+  }
+
+  .table-bottom-actions {
+    flex-direction: column;
+  }
+
+  .dropdown-examples {
+    grid-template-columns: 1fr;
   }
 }
 

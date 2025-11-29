@@ -1,0 +1,40 @@
+{
+  "extraItemsHistory": [
+    {
+      "id": "extra-1732647281234-a7f3k2m9",
+      "name": "Organic Quinoa",
+      "store": "Trader Joe's",
+      "unit": "lbs",
+      "category": "Dry goods & grains",
+      "addedAt": "2025-11-26T18:30:00.000Z"
+    },
+    {
+      "id": "extra-1732647350123-b8g4m3n1",
+      "name": "Special Spice Mix",
+      "unit": "oz",
+      "addedAt": "2025-11-26T18:35:00.000Z"
+    },
+    {
+      "id": "extra-1732647400456-c9h5n4p2",
+      "name": "Saffron Threads",
+      "store": "Whole Foods",
+      "unit": "g",
+      "addedAt": "2025-11-26T18:40:00.000Z"
+    },
+    {
+      "id": "extra-1732647450789-d1i6o5q3",
+      "name": "Ghee",
+      "category": "Oils & fats",
+      "unit": "btl",
+      "addedAt": "2025-11-26T18:45:00.000Z"
+    },
+    {
+      "id": "extra-1732647500234-e2j7p6r4",
+      "name": "Tamarind Paste",
+      "store": "Indian Market",
+      "unit": "btl",
+      "category": "Condiments & sauces",
+      "addedAt": "2025-11-26T18:50:00.000Z"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 'use client';
 
-import { Plus, Package, Tag, Store, Ruler } from 'lucide-react';
+import { Plus, Package, Tag, Store, Ruler, Inbox } from 'lucide-react';
 import { useState } from 'react';
 import styles from './page.module.css';
 
@@ -16,7 +16,8 @@ import {
   ProductForm,
   CategoryForm,
   StoreForm,
-  UnitForm
+  UnitForm,
+  ExtraItem
 } from './types';
 
 // Hooks
@@ -27,11 +28,13 @@ import { ProductsTab } from './components/ProductsTab';
 import { CategoriesTab } from './components/CategoriesTab';
 import { StoresTab } from './components/StoresTab';
 import { UnitsTab } from './components/UnitsTab';
+import { ExtraItemsTab } from './components/ExtraItemsTab';
 import { ProductModal } from './components/ProductModal';
 import { CategoryModal } from './components/CategoryModal';
 import { StoreModal } from './components/StoreModal';
 import { UnitModal } from './components/UnitModal';
 import { ViewProductsModal } from './components/ViewProductsModal';
+import { ApproveExtraItemModal } from './components/ApproveExtraItemModal';
 import { DeleteConfirmModal } from './components/DeleteConfirmModal';
 
 export default function AddNewItems() {
@@ -39,6 +42,7 @@ export default function AddNewItems() {
   const [modalMode, setModalMode] = useState<ModalMode>(null);
   const [currentItem, setCurrentItem] = useState<any>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<DeleteConfirm | null>(null);
+  const [extraItemToApprove, setExtraItemToApprove] = useState<ExtraItem | null>(null);
 
   // Data from custom hook
   const {
@@ -49,7 +53,9 @@ export default function AddNewItems() {
     stores,
     setStores,
     units,
-    setUnits
+    setUnits,
+    extraItems,
+    setExtraItems
   } = useInventoryData();
 
   // Form states
@@ -272,6 +278,51 @@ export default function AddNewItems() {
     return products.filter(p => p.unit === unitAbbr);
   };
 
+  // Extra Items handlers
+  const handleApproveExtraItem = (item: ExtraItem) => {
+    setExtraItemToApprove(item);
+    setModalMode('approveExtraItem');
+  };
+
+  const confirmApproveExtraItem = (
+    item: ExtraItem,
+    filledData: { store: string; category: string }
+  ) => {
+    // Generate new ID for master inventory
+    const maxId = Math.max(
+      ...products.map(p => {
+        const match = p.id.match(/prod-(\d+)/);
+        return match ? parseInt(match[1]) : 0;
+      }),
+      0
+    );
+    const newId = `prod-${String(maxId + 1).padStart(3, '0')}`;
+
+    // Create new product for master inventory
+    const newProduct: Product = {
+      id: newId,
+      name: item.name,
+      category: filledData.category || item.category || 'Not Assigned',
+      store: filledData.store || item.store || 'Not Assigned',
+      unit: item.unit,
+      notes: `Added from user request on ${new Date().toLocaleDateString()}`,
+      createdAt: new Date().toISOString()
+    };
+
+    // Add to products
+    setProducts([...products, newProduct]);
+
+    // Remove from extraItems
+    setExtraItems(extraItems.filter(ei => ei.id !== item.id));
+
+    // Close modal
+    setExtraItemToApprove(null);
+    setModalMode(null);
+  };
+
+  // Get counts for tab badges
+  const pendingExtraItemsCount = extraItems.length;
+
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -281,13 +332,15 @@ export default function AddNewItems() {
           </div>
           <div>
             <h1 className={styles.title}>Add New Items</h1>
-            <p className={styles.subtitle}>Manage products, categories, stores, and units</p>
+            <p className={styles.subtitle}>Manage products, categories, stores, units, and user requests</p>
           </div>
         </div>
-        <button className={styles.addButton} onClick={openAddModal}>
-          <Plus size={20} />
-          Add {activeTab === 'products' ? 'Product' : activeTab === 'categories' ? 'Category' : activeTab === 'stores' ? 'Store' : 'Unit'}
-        </button>
+        {activeTab !== 'extra-items' && (
+          <button className={styles.addButton} onClick={openAddModal}>
+            <Plus size={20} />
+            Add {activeTab === 'products' ? 'Product' : activeTab === 'categories' ? 'Category' : activeTab === 'stores' ? 'Store' : activeTab === 'units' ? 'Unit' : 'Item'}
+          </button>
+        )}
       </header>
 
       {/* Tabs */}
@@ -323,6 +376,18 @@ export default function AddNewItems() {
           <Ruler size={20} />
           Units
           <span className={styles.count}>{units.length}</span>
+        </button>
+        <button
+          className={`${styles.tab} ${activeTab === 'extra-items' ? styles.active : ''}`}
+          onClick={() => setActiveTab('extra-items')}
+        >
+          <Inbox size={20} />
+          Extra Items
+          {pendingExtraItemsCount > 0 && (
+            <span className={styles.count} style={{ background: '#ffc107', color: '#000' }}>
+              {pendingExtraItemsCount}
+            </span>
+          )}
         </button>
       </div>
 
@@ -363,6 +428,13 @@ export default function AddNewItems() {
               onEdit={openEditModal}
               onDelete={setDeleteConfirm}
               onViewProducts={openViewProductsModal}
+            />
+          )}
+
+          {activeTab === 'extra-items' && (
+            <ExtraItemsTab
+              extraItems={extraItems}
+              onApproveItem={handleApproveExtraItem}
             />
           )}
         </div>
@@ -421,6 +493,20 @@ export default function AddNewItems() {
           unit={currentItem}
           products={getProductsUsingUnit(currentItem.abbreviation)}
           onClose={closeModal}
+        />
+      )}
+
+      {modalMode === 'approveExtraItem' && extraItemToApprove && (
+        <ApproveExtraItemModal
+          item={extraItemToApprove}
+          categories={categories}
+          stores={stores}
+          units={units}
+          onSubmit={confirmApproveExtraItem}
+          onClose={() => {
+            setExtraItemToApprove(null);
+            setModalMode(null);
+          }}
         />
       )}
 

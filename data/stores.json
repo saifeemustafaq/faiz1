@@ -14,8 +14,21 @@
       "deletedBy": null
     },
     {
-      "id": "store-002",
-      "name": "Walmart",
+      "id": "store-004",
+      "name": "Local Market",
+      "productCount": 0,
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z",
+      "createdBy": null,
+      "createdByName": "System",
+      "updatedBy": null,
+      "updatedByName": null,
+      "deletedAt": null,
+      "deletedBy": null
+    },
+    {
+      "id": "store-007",
+      "name": "Restaurant Depot",
       "productCount": 0,
       "createdAt": "2025-01-01T00:00:00.000Z",
       "updatedAt": "2025-01-01T00:00:00.000Z",
@@ -40,32 +53,6 @@
       "deletedBy": null
     },
     {
-      "id": "store-004",
-      "name": "Local Market",
-      "productCount": 0,
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z",
-      "createdBy": null,
-      "createdByName": "System",
-      "updatedBy": null,
-      "updatedByName": null,
-      "deletedAt": null,
-      "deletedBy": null
-    },
-    {
-      "id": "store-005",
-      "name": "Wholesale Supplier",
-      "productCount": 0,
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z",
-      "createdBy": null,
-      "createdByName": "System",
-      "updatedBy": null,
-      "updatedByName": null,
-      "deletedAt": null,
-      "deletedBy": null
-    },
-    {
       "id": "store-006",
       "name": "Trader Joe's",
       "productCount": 0,
@@ -79,8 +66,21 @@
       "deletedBy": null
     },
     {
-      "id": "store-007",
-      "name": "Restaurant Depot",
+      "id": "store-002",
+      "name": "Walmarts",
+      "productCount": 0,
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z",
+      "createdBy": null,
+      "createdByName": "System",
+      "updatedBy": null,
+      "updatedByName": null,
+      "deletedAt": null,
+      "deletedBy": null
+    },
+    {
+      "id": "store-005",
+      "name": "Wholesale Supplier",
       "productCount": 0,
       "createdAt": "2025-01-01T00:00:00.000Z",
       "updatedAt": "2025-01-01T00:00:00.000Z",
