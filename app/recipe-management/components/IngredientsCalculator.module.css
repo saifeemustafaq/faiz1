@@ -211,8 +211,8 @@
 
 /* Recipe Blocks Container */
 .recipeBlocksContainer {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   margin-bottom: 48px;
 }
@@ -224,6 +224,12 @@
   box-shadow: 4px 4px 0px var(--black-text, #1A1A1A);
   padding: 24px;
   animation: fadeIn 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+/* First card takes full width, smoothly transitions when second card is added */
+.recipeBlock:only-child {
+  grid-column: 1 / -1;
 }
 
 .recipeBlockHeader {
@@ -365,8 +371,16 @@
     justify-content: center;
   }
 
+  .recipeBlocksContainer {
+    grid-template-columns: 1fr;
+  }
+
   .recipeBlock {
     padding: 16px;
+  }
+
+  .recipeBlock:only-child {
+    grid-column: auto;
   }
 
   .combinedSummary {
