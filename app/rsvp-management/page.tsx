@@ -11,11 +11,23 @@ import {
   RotateCcw,
   Calendar as CalendarIcon,
   Check,
-  X
+  X,
+  RefreshCw
 } from 'lucide-react';
 import { useRSVP } from '../../contexts/RSVPContext';
 import { getCurrentPSTDate } from '../../lib/dateUtils';
 import styles from './page.module.css';
+
+interface WeekRSVPData {
+  medium: number;
+  large: number;
+  originalMedium: number;
+  originalLarge: number;
+}
+
+interface RSVPCounts {
+  [weekKey: string]: WeekRSVPData;
+}
 
 export default function RSVPManagement() {
   const {
@@ -34,6 +46,28 @@ export default function RSVPManagement() {
   const [currentDate, setCurrentDate] = useState<Date>(getCurrentPSTDate());
   const [selectedMonth, setSelectedMonth] = useState<number>(getCurrentPSTDate().getMonth());
   const [selectedYear, setSelectedYear] = useState<number>(getCurrentPSTDate().getFullYear());
+  const [rsvpCounts, setRsvpCounts] = useState<RSVPCounts>({});
+  const [isLoadingCounts, setIsLoadingCounts] = useState(true);
+  const [hasUnsavedRSVPChanges, setHasUnsavedRSVPChanges] = useState(false);
+
+  // Load RSVP counts from JSON file
+  useEffect(() => {
+    const loadRSVPCounts = async () => {
+      try {
+        const response = await fetch('/api/rsvp-counts');
+        if (response.ok) {
+          const data = await response.json();
+          setRsvpCounts(data.weeklyRSVPCounts || {});
+        }
+      } catch (error) {
+        console.error('Error loading RSVP counts:', error);
+      } finally {
+        setIsLoadingCounts(false);
+      }
+    };
+    
+    loadRSVPCounts();
+  }, []);
 
   // Get calendar data for the selected month (Monday-Saturday only, no Sundays)
   const getCalendarDays = () => {
@@ -187,13 +221,78 @@ export default function RSVPManagement() {
   };
 
   const getWeekRSVPData = (weekStart: Date) => {
-    // Placeholder data - will be connected to actual RSVP data later
-    // TODO: Fetch actual RSVP data from API based on weekStart date
-    const medium = 0; // Placeholder
-    const large = 0; // Placeholder
-    const average = Math.ceil(large + (medium * 0.75));
+    const weekKey = weekStart.toISOString().split('T')[0];
+    const data = rsvpCounts[weekKey];
     
-    return { medium, large, average };
+    if (data) {
+      const medium = data.medium || 0;
+      const large = data.large || 0;
+      const average = Math.ceil(large + (medium * 0.75));
+      return { medium, large, average, hasData: true };
+    }
+    
+    // Default values if no data
+    return { medium: 0, large: 0, average: 0, hasData: false };
+  };
+
+  const handleRSVPCountChange = (weekStart: Date, field: 'medium' | 'large', value: number) => {
+    const weekKey = weekStart.toISOString().split('T')[0];
+    const currentData = rsvpCounts[weekKey] || {
+      medium: 0,
+      large: 0,
+      originalMedium: 0,
+      originalLarge: 0
+    };
+
+    setRsvpCounts(prev => ({
+      ...prev,
+      [weekKey]: {
+        ...currentData,
+        [field]: value,
+        // Set original values if this is the first edit
+        [`original${field.charAt(0).toUpperCase() + field.slice(1)}`]: 
+          currentData[`original${field.charAt(0).toUpperCase() + field.slice(1)}` as keyof WeekRSVPData] || value
+      }
+    }));
+    
+    setHasUnsavedRSVPChanges(true);
+  };
+
+  const handleResetWeek = (weekStart: Date) => {
+    const weekKey = weekStart.toISOString().split('T')[0];
+    const data = rsvpCounts[weekKey];
+    
+    if (data) {
+      setRsvpCounts(prev => ({
+        ...prev,
+        [weekKey]: {
+          ...data,
+          medium: data.originalMedium,
+          large: data.originalLarge
+        }
+      }));
+      setHasUnsavedRSVPChanges(true);
+    }
+  };
+
+  const handleSaveRSVPCounts = async () => {
+    try {
+      const response = await fetch('/api/rsvp-counts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ weeklyRSVPCounts: rsvpCounts })
+      });
+      
+      if (response.ok) {
+        setHasUnsavedRSVPChanges(false);
+        alert('RSVP counts saved successfully!');
+      } else {
+        alert('Error saving RSVP counts');
+      }
+    } catch (error) {
+      console.error('Error saving RSVP counts:', error);
+      alert('Error saving RSVP counts');
+    }
   };
 
   const isSameDay = (date1: Date, date2: Date): boolean => {
@@ -425,6 +524,7 @@ export default function RSVPManagement() {
             <div className={styles.rsvpTableHeaderCell}>Med</div>
             <div className={styles.rsvpTableHeaderCell}>Large</div>
             <div className={styles.rsvpTableHeaderCell}>Avg</div>
+            <div className={styles.rsvpTableHeaderCell}>Reset</div>
           </div>
 
           {/* Table Rows - One per week, aligned with calendar */}
@@ -437,10 +537,36 @@ export default function RSVPManagement() {
               return (
                 <div key={`rsvp-week-${weekIndex}`} className={styles.rsvpTableRow}>
                   <div className={styles.rsvpTableCell}>{weekLabel}</div>
-                  <div className={styles.rsvpTableCell}>{rsvpData.medium}</div>
-                  <div className={styles.rsvpTableCell}>{rsvpData.large}</div>
+                  <div className={styles.rsvpTableCell}>
+                    <input
+                      type="number"
+                      min="0"
+                      className={styles.rsvpInput}
+                      value={rsvpData.medium}
+                      onChange={(e) => handleRSVPCountChange(weekStart, 'medium', parseInt(e.target.value) || 0)}
+                    />
+                  </div>
+                  <div className={styles.rsvpTableCell}>
+                    <input
+                      type="number"
+                      min="0"
+                      className={styles.rsvpInput}
+                      value={rsvpData.large}
+                      onChange={(e) => handleRSVPCountChange(weekStart, 'large', parseInt(e.target.value) || 0)}
+                    />
+                  </div>
                   <div className={`${styles.rsvpTableCell} ${styles.rsvpTableCellAvg}`}>
                     {rsvpData.average}
+                  </div>
+                  <div className={styles.rsvpTableCell}>
+                    <button
+                      className={styles.resetButton}
+                      onClick={() => handleResetWeek(weekStart)}
+                      title="Reset to original values"
+                      disabled={!rsvpData.hasData}
+                    >
+                      <RefreshCw size={14} />
+                    </button>
                   </div>
                 </div>
               );
@@ -456,7 +582,7 @@ export default function RSVPManagement() {
 
       {/* Save/Cancel Actions */}
       <div className={styles.actions}>
-        {hasUnsavedChanges && (
+        {(hasUnsavedChanges || hasUnsavedRSVPChanges) && (
           <div className={styles.unsavedWarning}>
             <strong>Unsaved Changes</strong> - Save to publish your changes
           </div>
@@ -465,18 +591,21 @@ export default function RSVPManagement() {
           <button
             className={styles.cancelButton}
             onClick={handleCancel}
-            disabled={!hasUnsavedChanges}
+            disabled={!hasUnsavedChanges && !hasUnsavedRSVPChanges}
           >
             <RotateCcw size={20} />
             Cancel Changes
           </button>
           <button
             className={styles.saveButton}
-            onClick={handleSave}
-            disabled={!hasUnsavedChanges}
+            onClick={async () => {
+              if (hasUnsavedChanges) await handleSave();
+              if (hasUnsavedRSVPChanges) await handleSaveRSVPCounts();
+            }}
+            disabled={!hasUnsavedChanges && !hasUnsavedRSVPChanges}
           >
             <Save size={20} />
-            Save Settings
+            Save All Settings
           </button>
         </div>
       </div>

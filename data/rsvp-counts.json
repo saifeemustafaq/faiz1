@@ -1,0 +1,73 @@
+{
+  "weeklyRSVPCounts": {
+    "2025-10-27": {
+      "medium": 12,
+      "large": 18,
+      "originalMedium": 12,
+      "originalLarge": 18
+    },
+    "2025-11-03": {
+      "medium": 25,
+      "large": 30,
+      "originalMedium": 25,
+      "originalLarge": 30
+    },
+    "2025-11-10": {
+      "medium": 20,
+      "large": 28,
+      "originalMedium": 20,
+      "originalLarge": 28
+    },
+    "2025-11-17": {
+      "medium": 18,
+      "large": 22,
+      "originalMedium": 18,
+      "originalLarge": 22
+    },
+    "2025-11-24": {
+      "medium": 15,
+      "large": 25,
+      "originalMedium": 15,
+      "originalLarge": 25
+    },
+    "2025-12-01": {
+      "medium": 22,
+      "large": 28,
+      "originalMedium": 22,
+      "originalLarge": 28
+    },
+    "2025-12-08": {
+      "medium": 30,
+      "large": 35,
+      "originalMedium": 30,
+      "originalLarge": 35
+    },
+    "2025-12-15": {
+      "medium": 28,
+      "large": 32,
+      "originalMedium": 28,
+      "originalLarge": 32
+    },
+    "2025-12-22": {
+      "medium": 20,
+      "large": 24,
+      "originalMedium": 20,
+      "originalLarge": 24
+    },
+    "2025-12-29": {
+      "medium": 10,
+      "large": 15,
+      "originalMedium": 10,
+      "originalLarge": 15
+    }
+  },
+  "description": "Weekly RSVP counts for meal planning",
+  "note": "Keys are Monday dates (YYYY-MM-DD) for each week. Average is calculated as: Math.ceil(large + (medium * 0.75))",
+  "fields": {
+    "medium": "Number of medium meal RSVPs for the week",
+    "large": "Number of large meal RSVPs for the week",
+    "originalMedium": "Original medium count (for reset functionality)",
+    "originalLarge": "Original large count (for reset functionality)"
+  }
+}
+
