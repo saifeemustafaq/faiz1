@@ -9,7 +9,9 @@ import {
   XCircle,
   Save,
   RotateCcw,
-  Calendar as CalendarIcon
+  Calendar as CalendarIcon,
+  Check,
+  X
 } from 'lucide-react';
 import { useRSVP } from '../../contexts/RSVPContext';
 import { getCurrentPSTDate } from '../../lib/dateUtils';
@@ -32,33 +34,48 @@ export default function RSVPManagement() {
   const [currentDate, setCurrentDate] = useState<Date>(getCurrentPSTDate());
   const [selectedMonth, setSelectedMonth] = useState<number>(getCurrentPSTDate().getMonth());
   const [selectedYear, setSelectedYear] = useState<number>(getCurrentPSTDate().getFullYear());
-  const [hoveredWeek, setHoveredWeek] = useState<number | null>(null);
 
-  // Get calendar data for the selected month
+  // Get calendar data for the selected month (Monday-Saturday only, no Sundays)
   const getCalendarDays = () => {
     const firstDay = new Date(selectedYear, selectedMonth, 1);
     const lastDay = new Date(selectedYear, selectedMonth + 1, 0);
-    const startingDayOfWeek = firstDay.getDay(); // 0 = Sunday
+    const startingDayOfWeek = firstDay.getDay(); // 0 = Sunday, 1 = Monday, etc.
     
     const days: Date[] = [];
     
-    // Add days from previous month to fill the first week
+    // Calculate how many days from previous month to show (excluding Sunday)
+    // If month starts on Sunday (0), start from Monday (show 0 days from prev month)
+    // If month starts on Monday (1), show 0 days from prev month
+    // If month starts on Tuesday (2), show 1 day from prev month (Monday)
+    // etc.
+    const daysFromPrevMonth = startingDayOfWeek === 0 ? 0 : startingDayOfWeek - 1;
+    
+    // Add days from previous month to fill the first week (Monday start)
     const prevMonthLastDay = new Date(selectedYear, selectedMonth, 0);
-    for (let i = startingDayOfWeek - 1; i >= 0; i--) {
+    for (let i = daysFromPrevMonth - 1; i >= 0; i--) {
       const date = new Date(selectedYear, selectedMonth - 1, prevMonthLastDay.getDate() - i);
-      days.push(date);
+      if (date.getDay() !== 0) { // Skip Sundays
+        days.push(date);
+      }
     }
     
-    // Add all days in the current month
+    // Add all days in the current month (skip Sundays)
     for (let day = 1; day <= lastDay.getDate(); day++) {
-      days.push(new Date(selectedYear, selectedMonth, day));
+      const date = new Date(selectedYear, selectedMonth, day);
+      if (date.getDay() !== 0) { // Skip Sundays
+        days.push(date);
+      }
     }
     
-    // Add days from next month to complete the last week
-    const remainingDays = 7 - (days.length % 7);
-    if (remainingDays < 7) {
-      for (let day = 1; day <= remainingDays; day++) {
-        days.push(new Date(selectedYear, selectedMonth + 1, day));
+    // Add days from next month to complete the last week (up to Saturday, skip Sundays)
+    const lastDayOfWeek = days[days.length - 1].getDay();
+    if (lastDayOfWeek !== 6) { // If last day is not Saturday
+      const daysToAdd = 6 - lastDayOfWeek;
+      for (let day = 1; day <= daysToAdd; day++) {
+        const date = new Date(selectedYear, selectedMonth + 1, day);
+        if (date.getDay() !== 0) { // Skip Sundays
+          days.push(date);
+        }
       }
     }
     
@@ -106,15 +123,15 @@ export default function RSVPManagement() {
   };
 
   const formatWeekLabel = (weekStartDate: Date): string => {
-    // Format as "Week of Nov 17, 2025"
+    // Always show the Monday of the week
+    const monday = getMondayOfWeek(weekStartDate);
     const options: Intl.DateTimeFormatOptions = {
       month: 'short',
       day: 'numeric',
-      year: 'numeric',
       timeZone: 'America/Los_Angeles'
     };
-    const formatted = weekStartDate.toLocaleDateString('en-US', options);
-    return `Week of ${formatted}`;
+    const formatted = monday.toLocaleDateString('en-US', options);
+    return formatted;
   };
 
   const getWeeksInMonth = (): Date[] => {
@@ -148,6 +165,37 @@ export default function RSVPManagement() {
     return weeks;
   };
 
+  const isWeekEnabled = (weekStart: Date): boolean => {
+    // Check if all Monday-Saturday days in the week are enabled
+    let enabledCount = 0;
+    const totalDays = 6; // Monday to Saturday
+    
+    for (let i = 0; i < 7; i++) {
+      const day = new Date(weekStart);
+      day.setDate(weekStart.getDate() + i);
+      
+      if (day.getDay() !== 0) { // Not Sunday (Mon-Sat only)
+        const dateKey = getDateKey(day);
+        if (isDayEnabled(dateKey)) {
+          enabledCount++;
+        }
+      }
+    }
+    
+    // Consider week enabled if all 6 days (Mon-Sat) are enabled
+    return enabledCount === totalDays;
+  };
+
+  const getWeekRSVPData = (weekStart: Date) => {
+    // Placeholder data - will be connected to actual RSVP data later
+    // TODO: Fetch actual RSVP data from API based on weekStart date
+    const medium = 0; // Placeholder
+    const large = 0; // Placeholder
+    const average = Math.ceil(large + (medium * 0.75));
+    
+    return { medium, large, average };
+  };
+
   const isSameDay = (date1: Date, date2: Date): boolean => {
     return date1.getFullYear() === date2.getFullYear() &&
            date1.getMonth() === date2.getMonth() &&
@@ -159,14 +207,13 @@ export default function RSVPManagement() {
     toggleDay(dateKey);
   };
 
-  const handleEnableWeek = (date: Date) => {
+  const handleToggleWeek = (date: Date) => {
     const monday = getMondayOfWeek(date);
-    enableWeek(monday);
-  };
-
-  const handleDisableWeek = (date: Date) => {
-    const monday = getMondayOfWeek(date);
-    disableWeek(monday);
+    if (isWeekEnabled(monday)) {
+      disableWeek(monday);
+    } else {
+      enableWeek(monday);
+    }
   };
 
   const handleEnableMonth = () => {
@@ -190,9 +237,15 @@ export default function RSVPManagement() {
 
   const summary = getSummary();
   const calendarDays = getCalendarDays();
-  const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']; // No Sunday
   const weeksInMonth = getWeeksInMonth();
   const todayPST = getCurrentPSTDate();
+
+  // Group calendar days by week for rendering (6 days per week: Mon-Sat)
+  const weekGroups: Date[][] = [];
+  for (let i = 0; i < calendarDays.length; i += 6) {
+    weekGroups.push(calendarDays.slice(i, i + 6));
+  }
 
   return (
     <div className={styles.page}>
@@ -216,7 +269,7 @@ export default function RSVPManagement() {
         </div>
         <div>
           <strong>Default: All days are DISABLED</strong>
-          <p>Actively enable specific days, weeks, or months to allow user RSVPs. Only enabled dates will be available in the customer portal.</p>
+          <p>Actively enable specific days, weeks, or months to allow user RSVPs. Only enabled dates will be available in the customer portal. Note: Sundays are excluded (no service on Sundays).</p>
         </div>
       </div>
 
@@ -235,8 +288,8 @@ export default function RSVPManagement() {
           <span>Today</span>
         </div>
         <div className={styles.legendItem}>
-          <div className={`${styles.legendBox} ${styles.legendSunday}`}></div>
-          <span>Sunday (No Service)</span>
+          <div className={`${styles.legendBox} ${styles.legendOtherMonth}`}></div>
+          <span>Other Month</span>
         </div>
       </div>
 
@@ -281,12 +334,13 @@ export default function RSVPManagement() {
         </div>
       </div>
 
-      {/* Calendar and Week Actions Side by Side */}
+      {/* Calendar and RSVP Count Side by Side */}
       <div className={styles.calendarContainer}>
-        {/* Calendar Grid */}
+        {/* Calendar Grid with Inline Week Controls */}
         <div className={styles.calendar}>
-          {/* Week day headers */}
+          {/* Week day headers with toggle column */}
           <div className={styles.weekDayHeaders}>
+            <div className={styles.weekToggleHeader}>Week</div>
             {weekDays.map(day => (
               <div key={day} className={styles.weekDayHeader}>
                 {day}
@@ -294,75 +348,99 @@ export default function RSVPManagement() {
             ))}
           </div>
 
-          {/* Calendar days */}
-          <div className={styles.calendarGrid}>
-            {calendarDays.map((date, index) => {
-              const dateKey = getDateKey(date);
-              const isEnabled = isDayEnabled(dateKey);
-              const isToday = isSameDay(date, todayPST);
-              const isSunday = date.getDay() === 0;
-              const isOtherMonth = date.getMonth() !== selectedMonth;
-              const monthAbbr = date.toLocaleDateString('en-US', { 
-                month: 'short',
-                timeZone: 'America/Los_Angeles'
-              });
+          {/* Calendar weeks with inline toggle */}
+          <div className={styles.calendarWeeks}>
+            {weekGroups.map((week, weekIndex) => {
+              // Get the Monday of this week
+              const weekStart = getMondayOfWeek(week[0]);
+              const weekEnabled = isWeekEnabled(weekStart);
 
               return (
-                <div
-                  key={`${dateKey}-${index}`}
-                  className={`${styles.calendarDay} 
-                    ${isEnabled ? styles.dayEnabled : styles.dayDisabled}
-                    ${isToday ? styles.dayToday : ''}
-                    ${isSunday ? styles.daySunday : ''}
-                    ${isOtherMonth ? styles.dayOtherMonth : ''}`}
-                  onClick={() => !isSunday && handleDayClick(date)}
-                  title={isSunday ? 'No service on Sundays' : isOtherMonth ? 'Other month' : undefined}
+                <div 
+                  key={`week-${weekIndex}`} 
+                  className={styles.weekRow}
                 >
-                  <div className={styles.dayContent}>
-                    <span className={styles.dayNumber}>{date.getDate()}</span>
-                    <span className={styles.monthLabel}>{monthAbbr}</span>
-                  </div>
-                  {isEnabled && !isSunday && (
-                    <div className={styles.enabledIndicator}>
-                      <CheckCircle size={12} />
-                    </div>
-                  )}
-                  {isSunday && (
-                    <div className={styles.sundayIndicator}>—</div>
-                  )}
+                  {/* Week Toggle Switch */}
+                  <button
+                    className={`${styles.weekToggleSwitch} ${weekEnabled ? styles.weekToggleSwitchEnabled : ''}`}
+                    onClick={() => handleToggleWeek(weekStart)}
+                    title={weekEnabled ? 'Click to disable week (Mon-Sat)' : 'Click to enable week (Mon-Sat)'}
+                    role="switch"
+                    aria-checked={weekEnabled}
+                  >
+                    <span className={styles.weekToggleSlider}></span>
+                  </button>
+
+                  {/* Days in the week (Mon-Sat only) */}
+                  {week.map((date, dayIndex) => {
+                    const dateKey = getDateKey(date);
+                    const isEnabled = isDayEnabled(dateKey);
+                    const isToday = isSameDay(date, todayPST);
+                    const isOtherMonth = date.getMonth() !== selectedMonth;
+                    const monthAbbr = date.toLocaleDateString('en-US', { 
+                      month: 'short',
+                      timeZone: 'America/Los_Angeles'
+                    });
+
+                    return (
+                      <div
+                        key={`${dateKey}-${dayIndex}`}
+                        className={`${styles.calendarDay} 
+                          ${isEnabled ? styles.dayEnabled : styles.dayDisabled}
+                          ${isToday ? styles.dayToday : ''}
+                          ${isOtherMonth ? styles.dayOtherMonth : ''}`}
+                        onClick={() => handleDayClick(date)}
+                        title={isOtherMonth ? `${monthAbbr} ${date.getDate()}` : undefined}
+                      >
+                        <div className={styles.dayContent}>
+                          <span className={styles.dayNumber}>{date.getDate()}</span>
+                          <span className={styles.monthLabel}>{monthAbbr}</span>
+                        </div>
+                        {isEnabled && (
+                          <div className={styles.enabledIndicator}>
+                            <CheckCircle size={12} />
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               );
             })}
           </div>
         </div>
 
-        {/* Week Actions - Right Side */}
-        <div className={styles.weekActions}>
-          <h3 className={styles.weekActionsTitle}>Week Actions</h3>
-          <div className={styles.weekButtons}>
-            {weeksInMonth.map((weekStart) => {
+        {/* RSVP Count Table - Right Side */}
+        <div className={styles.rsvpCount}>
+          <div className={styles.rsvpCountHeader}>
+            <h3 className={styles.rsvpCountTitle}>RSVP Count</h3>
+            <div className={styles.rsvpCountNote}>
+              <small>Avg = ⌈Large + (Med × 0.75)⌉</small>
+            </div>
+          </div>
+          
+          {/* Table Header */}
+          <div className={styles.rsvpTableHeader}>
+            <div className={styles.rsvpTableHeaderCell}>Week</div>
+            <div className={styles.rsvpTableHeaderCell}>Med</div>
+            <div className={styles.rsvpTableHeaderCell}>Large</div>
+            <div className={styles.rsvpTableHeaderCell}>Avg</div>
+          </div>
+
+          {/* Table Rows - One per week, aligned with calendar */}
+          <div className={styles.rsvpTableBody}>
+            {weekGroups.map((week, weekIndex) => {
+              const weekStart = getMondayOfWeek(week[0]);
               const weekLabel = formatWeekLabel(weekStart);
-              
+              const rsvpData = getWeekRSVPData(weekStart);
+
               return (
-                <div key={weekStart.toISOString()} className={styles.weekButtonGroup}>
-                  <span className={styles.weekLabel}>{weekLabel}</span>
-                  <div className={styles.weekButtonPair}>
-                    <button
-                      className={styles.enableWeekButton}
-                      onClick={() => handleEnableWeek(weekStart)}
-                      title={`Enable ${weekLabel}`}
-                    >
-                      <CheckCircle size={14} />
-                      Enable
-                    </button>
-                    <button
-                      className={styles.disableWeekButton}
-                      onClick={() => handleDisableWeek(weekStart)}
-                      title={`Disable ${weekLabel}`}
-                    >
-                      <XCircle size={14} />
-                      Disable
-                    </button>
+                <div key={`rsvp-week-${weekIndex}`} className={styles.rsvpTableRow}>
+                  <div className={styles.rsvpTableCell}>{weekLabel}</div>
+                  <div className={styles.rsvpTableCell}>{rsvpData.medium}</div>
+                  <div className={styles.rsvpTableCell}>{rsvpData.large}</div>
+                  <div className={`${styles.rsvpTableCell} ${styles.rsvpTableCellAvg}`}>
+                    {rsvpData.average}
                   </div>
                 </div>
               );
@@ -373,7 +451,7 @@ export default function RSVPManagement() {
 
       {/* Hint */}
       <div className={styles.hint}>
-        <strong>Quick Actions:</strong> Click any day to toggle (Sundays disabled - no service). Use week actions or month buttons for bulk operations.
+        <strong>Quick Actions:</strong> Click any day to toggle individually. Use the <Check size={14} style={{display: 'inline', verticalAlign: 'middle'}} />/<X size={14} style={{display: 'inline', verticalAlign: 'middle'}} /> icons to enable/disable entire weeks (Mon-Sat), or use month buttons for bulk operations. Note: Sundays are not shown as there is no service.
       </div>
 
       {/* Save/Cancel Actions */}

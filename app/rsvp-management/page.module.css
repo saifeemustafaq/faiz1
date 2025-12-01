@@ -113,6 +113,11 @@
   opacity: 0.6;
 }
 
+.legendOtherMonth {
+  background: var(--ivory-divider);
+  border-style: dashed;
+}
+
 /* Calendar Header */
 .calendarHeader {
   display: flex;
@@ -213,9 +218,10 @@
 /* Calendar Container - Side by Side Layout */
 .calendarContainer {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-base);
+  grid-template-columns: auto 340px;
+  gap: var(--space-lg);
   margin-bottom: var(--space-lg);
+  align-items: start;
 }
 
 /* Calendar */
@@ -225,14 +231,29 @@
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-retro);
   padding: var(--space-sm);
-  max-width: 525px;
+  max-width: 640px;
 }
 
 .weekDayHeaders {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: 50px repeat(6, 1fr);
   gap: 3px;
   margin-bottom: 3px;
+  height: 36px;
+}
+
+.weekToggleHeader {
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.65rem;
+  color: var(--black-secondary);
+  padding: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
 }
 
 .weekDayHeader {
@@ -243,12 +264,85 @@
   padding: 4px;
   text-transform: uppercase;
   letter-spacing: 0.02em;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.calendarGrid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
+.calendarWeeks {
+  display: flex;
+  flex-direction: column;
   gap: 3px;
+}
+
+.weekRow {
+  display: grid;
+  grid-template-columns: 50px repeat(6, 1fr);
+  gap: 3px;
+  transition: all var(--transition-fast);
+  height: 57px;
+  margin-bottom: 3px;
+}
+
+.weekRowSelected {
+  background: var(--golden-light);
+  padding: 2px;
+  border-radius: var(--border-radius);
+  margin: -2px;
+}
+
+/* Week Toggle Switch (Slider) */
+.weekToggleSwitch {
+  width: 50px;
+  height: 54px;
+  background: transparent;
+  border: none;
+  padding: 12px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.weekToggleSwitch:hover {
+  transform: scale(1.05);
+}
+
+.weekToggleSlider {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: var(--ivory-divider);
+  border: 2px solid var(--red-error);
+  border-radius: 24px;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.weekToggleSlider::before {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: var(--red-error);
+  border-radius: 50%;
+  top: 1px;
+  left: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Enabled state */
+.weekToggleSwitchEnabled .weekToggleSlider {
+  background: var(--green-main);
+  border-color: var(--green-main);
+}
+
+.weekToggleSwitchEnabled .weekToggleSlider::before {
+  background: var(--ivory-bg);
+  transform: translateX(20px);
 }
 
 .emptyDay {
@@ -369,8 +463,8 @@
   color: var(--ivory-bg);
 }
 
-/* Week Actions - Right Side */
-.weekActions {
+/* RSVP Count Table - Right Side */
+.rsvpCount {
   background: var(--ivory-card);
   border: var(--border-width) solid var(--black-text);
   border-radius: var(--border-radius);
@@ -381,85 +475,98 @@
   gap: var(--space-xs);
 }
 
-.weekActionsTitle {
+.rsvpCountHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--space-xs);
+  border-bottom: 2px solid var(--ivory-border);
+  margin-bottom: var(--space-xs);
+}
+
+.rsvpCountTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--black-text);
+  margin: 0;
+}
+
+.rsvpCountNote {
+  margin: 0;
+}
+
+.rsvpCountNote small {
+  font-size: 0.65rem;
+  color: var(--black-secondary);
+  font-family: monospace;
+}
+
+/* RSVP Table */
+.rsvpTableHeader {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 3px;
+  margin-bottom: 3px;
+  height: 36px;
+}
+
+.rsvpTableHeaderCell {
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--black-text);
+  padding: var(--space-xs);
+  background: var(--golden-light);
+  border: 1px solid var(--golden-main);
+  border-radius: var(--border-radius);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rsvpTableBody {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.rsvpTableRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 3px;
+  height: 57px;
+  align-items: center;
+  margin-bottom: 3px;
+}
+
+.rsvpTableCell {
+  text-align: center;
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--black-text);
-  margin: 0 0 var(--space-xs) 0;
-  padding-bottom: var(--space-xs);
-  border-bottom: 2px solid var(--ivory-border);
-}
-
-.weekButtons {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-}
-
-.weekButtonGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
   padding: var(--space-xs);
   background: var(--ivory-bg);
-  border-radius: var(--border-radius);
   border: 1px solid var(--ivory-border);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
 }
 
-.weekLabel {
+.rsvpTableCell:first-child {
   font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--black-text);
-  display: block;
-  margin-bottom: 2px;
+  font-weight: 500;
+  color: var(--black-secondary);
 }
 
-.weekButtonPair {
-  display: flex;
-  gap: 2px;
-}
-
-.enableWeekButton {
-  flex: 1;
-  background: var(--green-main);
-  color: var(--ivory-bg);
-  border: var(--border-width) solid var(--black-text);
-  border-radius: var(--border-radius);
-  padding: 4px 6px;
-  font-size: 0.65rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  transition: all var(--transition-fast);
-}
-
-.enableWeekButton:hover {
-  background: var(--green-hover);
-}
-
-.disableWeekButton {
-  flex: 1;
-  background: transparent;
-  color: var(--red-error);
-  border: var(--border-width) solid var(--red-error);
-  border-radius: var(--border-radius);
-  padding: 4px 6px;
-  font-size: 0.65rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  transition: all var(--transition-fast);
-}
-
-.disableWeekButton:hover {
-  background: var(--red-error);
-  color: var(--ivory-bg);
+.rsvpTableCellAvg {
+  background: var(--golden-light);
+  border-color: var(--golden-main);
+  font-weight: 700;
 }
 
 /* Hint */
@@ -610,7 +717,50 @@
     grid-template-columns: 1fr;
   }
 
-  .weekLabel {
+  .calendar {
+    max-width: 100%;
+  }
+
+  .weekDayHeaders {
+    grid-template-columns: 40px repeat(6, 1fr);
+  }
+
+  .weekRow {
+    grid-template-columns: 40px repeat(6, 1fr);
+  }
+
+  .weekToggleSwitch {
+    width: 40px;
+    padding: 10px 0;
+  }
+
+  .weekToggleSlider {
+    width: 38px;
+    height: 20px;
+  }
+
+  .weekToggleSlider::before {
+    width: 16px;
+    height: 16px;
+  }
+
+  .weekToggleSwitchEnabled .weekToggleSlider::before {
+    transform: translateX(16px);
+  }
+
+  .weekToggleHeader {
+    font-size: 0.6rem;
+  }
+
+  .rsvpCount {
+    margin-top: var(--space-base);
+  }
+
+  .rsvpTableRow {
+    height: 48px;
+  }
+
+  .rsvpTableCell:first-child {
     font-size: 0.65rem;
   }
 
@@ -632,7 +782,11 @@
 /* Tablet */
 @media (min-width: 768px) and (max-width: 1023px) {
   .calendarContainer {
-    grid-template-columns: 525px 1fr;
+    grid-template-columns: 1fr;
+  }
+
+  .calendar {
+    max-width: 100%;
   }
 }
 
@@ -652,7 +806,16 @@
   }
 
   .calendarContainer {
-    grid-template-columns: 525px 1fr;
+    grid-template-columns: auto 380px;
+  }
+
+  .rsvpTableHeaderCell {
+    font-size: 0.8rem;
+  }
+
+  .rsvpTableCell {
+    font-size: 0.95rem;
   }
 }
+
 
