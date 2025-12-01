@@ -27,20 +27,37 @@ export function RSVPProvider({ children }: { children: ReactNode }) {
   const [savedSettings, setSavedSettings] = useState<RSVPSettings>({});
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
-  // Load from localStorage on mount
+  // Load from API on mount
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('rsvpSettings');
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          setRsvpSettings(parsed);
-          setSavedSettings(parsed);
-        } catch (e) {
-          console.error('Failed to parse RSVP settings:', e);
+    const loadSettings = async () => {
+      try {
+        const response = await fetch('/api/data?type=rsvpSettings');
+        const data = await response.json();
+        
+        if (data.rsvpSettings) {
+          setRsvpSettings(data.rsvpSettings);
+          setSavedSettings(data.rsvpSettings);
+        }
+      } catch (error) {
+        console.error('Failed to load RSVP settings from API:', error);
+        
+        // Fallback to localStorage if API fails
+        if (typeof window !== 'undefined') {
+          const saved = localStorage.getItem('rsvpSettings');
+          if (saved) {
+            try {
+              const parsed = JSON.parse(saved);
+              setRsvpSettings(parsed);
+              setSavedSettings(parsed);
+            } catch (e) {
+              console.error('Failed to parse RSVP settings:', e);
+            }
+          }
         }
       }
-    }
+    };
+    
+    loadSettings();
   }, []);
 
   // Track unsaved changes
@@ -140,14 +157,30 @@ export function RSVPProvider({ children }: { children: ReactNode }) {
   };
 
   const saveSettings = async () => {
-    // In production, this would be an API call
-    // For now, save to localStorage
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('rsvpSettings', JSON.stringify(rsvpSettings));
-      localStorage.setItem('rsvpSettingsLastSaved', new Date().toISOString());
+    try {
+      // Save to localStorage for backward compatibility
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('rsvpSettings', JSON.stringify(rsvpSettings));
+        localStorage.setItem('rsvpSettingsLastSaved', new Date().toISOString());
+      }
+
+      // Save to API/database
+      const response = await fetch('/api/data?type=rsvpSettings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rsvpSettings }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save RSVP settings');
+      }
+
+      setSavedSettings({ ...rsvpSettings });
+      setHasUnsavedChanges(false);
+    } catch (error) {
+      console.error('Error saving RSVP settings:', error);
+      alert('Failed to save settings. Please try again.');
     }
-    setSavedSettings({ ...rsvpSettings });
-    setHasUnsavedChanges(false);
   };
 
   const cancelChanges = () => {

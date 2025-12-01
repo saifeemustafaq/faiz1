@@ -6,6 +6,7 @@ import { MenuProvider } from "../contexts/MenuContext";
 import { RSVPProvider } from "../contexts/RSVPContext";
 import { LocationProvider } from "../contexts/LocationContext";
 import styles from "./layout.module.css";
+import ConditionalLayout from "../components/ConditionalLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,12 +36,9 @@ export default function RootLayout({
         <LocationProvider>
           <RSVPProvider>
             <MenuProvider>
-              <div className={styles.appContainer}>
-                <Sidebar />
-                <main className={styles.mainContent}>
-                  {children}
-                </main>
-              </div>
+              <ConditionalLayout>
+                {children}
+              </ConditionalLayout>
             </MenuProvider>
           </RSVPProvider>
         </LocationProvider>

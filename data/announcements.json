@@ -1,0 +1,14 @@
+{
+  "announcements": [
+    {
+      "id": "ann_1764571279881",
+      "title": "Urus",
+      "message": "abc",
+      "type": "info",
+      "isActive": true,
+      "createdAt": "2025-12-01T06:41:19.881Z",
+      "updatedAt": "2025-12-01T06:41:40.064Z",
+      "displayUntil": "2025-12-02"
+    }
+  ]
+}

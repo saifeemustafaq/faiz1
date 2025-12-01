@@ -1,17 +1,39 @@
 {
-  "rsvpSettings": {},
-  "description": "Admin control for which dates users can RSVP for meals",
-  "note": "Keys are date strings (YYYY-MM-DD), values are boolean (enabled/disabled)",
-  "defaultState": "DISABLED - Admins must explicitly enable RSVP for specific dates",
-  "example": {
-    "2025-11-25": true,
-    "2025-11-26": true,
-    "2025-11-27": false,
-    "2025-11-28": true,
-    "2025-11-29": true,
-    "2025-11-30": true
-  },
-  "timezone": "America/Los_Angeles (PST)",
-  "excludedDays": ["Sunday"]
+  "rsvpSettings": {
+    "2025-12-01": {
+      "date": "2025-12-01",
+      "enabled": true,
+      "updatedAt": "2025-12-01T07:00:27.175Z"
+    },
+    "2025-12-02": {
+      "date": "2025-12-02",
+      "enabled": true,
+      "updatedAt": "2025-12-01T07:00:27.175Z"
+    },
+    "2025-12-03": {
+      "date": "2025-12-03",
+      "enabled": true,
+      "updatedAt": "2025-12-01T07:00:27.175Z"
+    },
+    "2025-12-04": {
+      "date": "2025-12-04",
+      "enabled": true,
+      "updatedAt": "2025-12-01T07:00:27.175Z"
+    },
+    "2025-12-05": {
+      "date": "2025-12-05",
+      "enabled": true,
+      "updatedAt": "2025-12-01T07:00:27.175Z"
+    },
+    "2025-12-06": {
+      "date": "2025-12-06",
+      "enabled": true,
+      "updatedAt": "2025-12-01T07:00:27.175Z"
+    },
+    "2025-12-07": {
+      "date": "2025-12-07",
+      "enabled": true,
+      "updatedAt": "2025-12-01T07:00:27.175Z"
+    }
+  }
 }
-

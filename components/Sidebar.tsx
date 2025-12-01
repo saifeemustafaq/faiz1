@@ -15,7 +15,8 @@ import {
   ShoppingCart, 
   Plus,
   Settings,
-  ChefHat
+  ChefHat,
+  Megaphone
 } from 'lucide-react';
 import sidebarConfig from '../config/sidebar.json';
 import styles from './Sidebar.module.css';
@@ -32,6 +33,7 @@ const iconMap: { [key: string]: any } = {
   Plus,
   Settings,
   ChefHat,
+  Megaphone,
 };
 
 export default function Sidebar() {
