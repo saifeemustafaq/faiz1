@@ -198,6 +198,17 @@
   box-shadow: 0 0 0 2px var(--golden-light);
 }
 
+.rsvpInputReadonly {
+  background: var(--ivory-divider);
+  cursor: not-allowed;
+  color: var(--black-secondary);
+}
+
+.rsvpInputReadonly:focus {
+  border-color: var(--black-text);
+  box-shadow: none;
+}
+
 .inputCell {
   display: flex;
   align-items: center;

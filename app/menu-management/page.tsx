@@ -24,6 +24,7 @@ export default function MenuManagement() {
   const [rsvpSummaryByDate, setRsvpSummaryByDate] = useState<Record<string, number>>({});
   const [recipientRsvpRows, setRecipientRsvpRows] = useState<Array<{ date?: string; status?: string }>>([]);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [weeklyRSVPCounts, setWeeklyRSVPCounts] = useState<Record<string, { medium: number; large: number }>>({});
   const { menuState, savedSummary, updateDay, clearDay, clearAllDays, saveMenu, toggleEventMode } = useMenu();
 
   // Initialize with current week on mount
@@ -45,6 +46,22 @@ export default function MenuManagement() {
       }
     };
     loadRecipes();
+  }, []);
+
+  // Load weekly RSVP counts from rsvp-counts.json
+  useEffect(() => {
+    const loadWeeklyRSVPCounts = async () => {
+      try {
+        const response = await fetch('/api/rsvp-counts');
+        if (response.ok) {
+          const data = await response.json();
+          setWeeklyRSVPCounts(data.weeklyRSVPCounts || {});
+        }
+      } catch (error) {
+        console.error('Error loading weekly RSVP counts:', error);
+      }
+    };
+    loadWeeklyRSVPCounts();
   }, []);
 
   // Load RSVP counts
@@ -93,6 +110,22 @@ export default function MenuManagement() {
     } catch (err) {
       console.error('Error saving RSVP summary:', err);
     }
+  };
+
+  // Calculate average RSVP count for a date based on its week's Monday
+  const getAverageRSVPForDate = (date: Date): number => {
+    const monday = getMondayOfWeek(date);
+    const weekKey = formatDateKey(monday);
+    const weekData = weeklyRSVPCounts[weekKey];
+    
+    if (weekData) {
+      const medium = weekData.medium || 0;
+      const large = weekData.large || 0;
+      const average = Math.ceil(large + (medium * 0.75));
+      return average;
+    }
+    
+    return 0;
   };
 
   const goToPreviousWeek = () => {
@@ -305,23 +338,12 @@ export default function MenuManagement() {
                 <input
                   type="number"
                   min={0}
-                  className={styles.rsvpInput}
-                  value={rsvpSummaryByDate[dateKey] ?? rsvpCounts[dateKey] ?? 0}
-                  onChange={(e) => {
-                    const next = Math.max(0, Number(e.target.value || 0));
-                    setRsvpSummaryByDate(prev => ({ ...prev, [dateKey]: next }));
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      const next = Math.max(0, Number((e.target as HTMLInputElement).value || 0));
-                      saveRsvpSummaryForDate(dateKey, next);
-                    }
-                  }}
-                  onBlur={(e) => {
-                    const next = Math.max(0, Number(e.target.value || 0));
-                    saveRsvpSummaryForDate(dateKey, next);
-                  }}
+                  className={`${styles.rsvpInput} ${styles.rsvpInputReadonly}`}
+                  value={getAverageRSVPForDate(day)}
+                  readOnly
+                  disabled
                   aria-label={`RSVP count for ${dateKey}`}
+                  title="This is calculated from RSVP Management. Edit there to change."
                 />
               </div>
 
